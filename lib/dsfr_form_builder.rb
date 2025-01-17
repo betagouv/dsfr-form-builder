@@ -54,7 +54,7 @@ module DsfrFormBuilder
     end
 
     def required_tag
-      @template.content_tag(:span, "*", class: "fr-text-error")
+      @template.content_tag(:span, "*", class: "fr-label--error")
     end
 
     def dsfr_error_message(attr)
