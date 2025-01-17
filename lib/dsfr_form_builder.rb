@@ -19,6 +19,10 @@ module DsfrFormBuilder
     def dsfr_email_field(attribute, opts = {})
       dsfr_input_field(attribute, :email_field, opts)
     end
+    
+    def dsfr_url_field(attribute, opts = {})
+      dsfr_input_field(attribute, :url_field, opts)
+    end
 
     def dsfr_phone_field(attribute, opts = {})
       dsfr_input_field(attribute, :phone_field, opts)
