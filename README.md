@@ -7,13 +7,13 @@ Cette gem permet de créer des formulaires avec Ruby on Rails en utilisant le de
 Ajoutez cette ligne à votre Gemfile :
 
 ```ruby
-gem 'dsfr_form_builder'
+gem 'dsfr-form_builder'
 ```
 
 Spécifiez l’utilisation du builder dans votre formulaire :
 
 ```erb
-<%= form_with model: @user, builder: DsfrFormBuilder::FormBuilder do |f| %>
+<%= form_with model: @user, builder: Dsfr::FormBuilder do |f| %>
   <%= f.text_field :name %>
 <% end %>
 ```
@@ -21,7 +21,7 @@ Spécifiez l’utilisation du builder dans votre formulaire :
 Vous pouvez également spécifier le builder par défaut dans votre fichier `application.rb` :
 
 ```ruby
-config.action_view.default_form_builder = DsfrFormBuilder::FormBuilder
+config.action_view.default_form_builder = Dsfr::FormBuilder
 ```
 
 ## Licence

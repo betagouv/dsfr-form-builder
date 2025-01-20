@@ -1,4 +1,4 @@
-module DsfrFormBuilder
+module Dsfr
   include ActiveSupport::Configurable
 
 
