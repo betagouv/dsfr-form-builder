@@ -17,7 +17,7 @@ module DsfrFormBuilder
     end
     
     def dsfr_submit(value, options = {})
-      button(value, options.merge(type: :submit))
+      dsfr_button(value, options.merge(type: :submit))
     end
 
     def dsfr_text_field(attribute, opts = {})
