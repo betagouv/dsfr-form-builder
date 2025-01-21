@@ -12,8 +12,8 @@ METADATA = {
 Gem::Specification.new do |spec|
   spec.name        = 'dsfr-form_builder'
   spec.version     = '0.0.1'
-  spec.authors     = ['BetaGouv developers']
-  spec.email       = ['antoine.girard@beta.gouv.fr']
+  spec.authors     = [ 'BetaGouv developers' ]
+  spec.email       = [ 'antoine.girard@beta.gouv.fr' ]
   spec.homepage    = 'https://github.com/betagouv/dsfr-form-builder'
   spec.summary     = "Ruby on Rails form builder pour le Système de Design de l'État (DSFR)"
   spec.description = "Cette librairie de composants vise à simplifier la création de formulaire au DSFR (Système de Design de l'État) dans les applications web utilisant Ruby On Rails"
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 3.2'
 
-  %w(actionview activemodel activesupport).each do |lib|
+  %w[actionview activemodel activesupport].each do |lib|
     spec.add_dependency(lib, '>= 6.1', '< 9.0')
   end
 end
