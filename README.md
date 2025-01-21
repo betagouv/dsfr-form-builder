@@ -1,5 +1,7 @@
 # Form builder du DSFR
 
+[![Gem Version](https://badge.fury.io/rb/dsfr-form_builder.svg?icon=si%3Arubygems)](https://badge.fury.io/rb/dsfr-form_builder)
+
 Cette gem permet de créer des formulaires avec Ruby on Rails en utilisant le design system de l'Etat français (DSFR).
 
 ## Installation
