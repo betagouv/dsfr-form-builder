@@ -19,7 +19,7 @@ module Dsfr
     def dsfr_email_field(attribute, opts = {})
       dsfr_input_field(attribute, :email_field, opts)
     end
-    
+
     def dsfr_url_field(attribute, opts = {})
       dsfr_input_field(attribute, :url_field, opts)
     end
@@ -40,7 +40,7 @@ module Dsfr
           [
             dsfr_label_with_hint(attribute, opts),
             public_send(input_kind, attribute, class: "fr-input", **opts.except(:class)),
-            dsfr_error_message(attribute),
+            dsfr_error_message(attribute)
           ]
         )
       end
@@ -49,7 +49,7 @@ module Dsfr
     def dsfr_label_with_hint(attribute, opts = {})
       label_class = "fr-label #{opts[:class]}"
       label(attribute, class: label_class) do
-        label_and_tags = [label_value(attribute, opts)]
+        label_and_tags = [ label_value(attribute, opts) ]
         label_and_tags.push(required_tag) if opts[:required] && display_required_tags
         label_and_tags.push(hint_tag(opts[:hint])) if opts[:hint]
 
@@ -90,7 +90,7 @@ module Dsfr
         [
           "fr-input-group",
           @object.errors[attribute].any? ? "fr-input-group--error" : nil,
-          opts[:class],
+          opts[:class]
         ]
       )
     end
