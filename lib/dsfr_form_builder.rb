@@ -16,7 +16,7 @@ module DsfrFormBuilder
       button(value, options.merge(class: "#{options.fetch(:class, '')} fr-btn"))
     end
     
-    def dsfr_submit(submit(value, options = {})
+    def dsfr_submit(value, options = {})
       button(value, options.merge(type: :submit))
     end
 
