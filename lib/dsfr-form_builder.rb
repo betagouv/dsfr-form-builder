@@ -61,6 +61,22 @@ module Dsfr
       end
     end
 
+    def dsfr_select(attribute, choices, opts = { input_options: {} })
+      @template.content_tag(:div, class: "fr-select-group") do
+        @template.safe_join(
+          [
+            dsfr_label_with_hint(attribute, opts.except(:input_options)),
+            dsfr_select_tag(attribute, choices, **opts, **(opts[:input_options] || {})),
+            dsfr_error_message(attribute)
+          ]
+        )
+      end
+    end
+
+    def dsfr_select_tag(attribute, choices, opts)
+      select(attribute, choices, { include_blank: opts[:include_blank] }, class: "fr-select")
+    end
+
     def dsfr_label_with_hint(attribute, opts = {})
       label_class = "fr-label #{opts[:class]}"
       label(attribute, class: label_class) do
