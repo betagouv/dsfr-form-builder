@@ -43,7 +43,7 @@ module Dsfr
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
-            public_send(input_kind, attribute, class: "fr-input", **opts.except(:class)),
+            public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint)),
             dsfr_error_message(attribute)
           ]
         )
