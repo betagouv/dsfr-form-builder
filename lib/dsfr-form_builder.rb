@@ -28,6 +28,10 @@ module Dsfr
       dsfr_input_field(attribute, :phone_field, opts)
     end
 
+    def dsfr_number_field(attribute, opts = {})
+      dsfr_input_field(attribute, :number_field, opts)
+    end
+
     def dsfr_input_group(attribute, opts, &block)
       @template.content_tag(:div, class: input_group_classes(attribute, opts), data: opts[:data]) do
         yield(block)
