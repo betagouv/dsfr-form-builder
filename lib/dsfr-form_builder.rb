@@ -46,6 +46,17 @@ module Dsfr
       end
     end
 
+    def dsfr_check_box(attribute, opts = {})
+      @template.content_tag(:div, class: "fr-checkbox-group") do
+        @template.safe_join(
+          [
+            check_box(attribute, opts),
+            label(attribute, class: "fr-label")
+          ]
+        )
+      end
+    end
+
     def dsfr_label_with_hint(attribute, opts = {})
       label_class = "fr-label #{opts[:class]}"
       label(attribute, class: label_class) do
