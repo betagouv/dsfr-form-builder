@@ -61,12 +61,12 @@ module Dsfr
       end
     end
 
-    def dsfr_select(attribute, choices, opts = { input_options: {} })
+    def dsfr_select(attribute, choices, input_options: {}, **opts)
       @template.content_tag(:div, class: "fr-select-group") do
         @template.safe_join(
           [
-            dsfr_label_with_hint(attribute, opts.except(:input_options)),
-            dsfr_select_tag(attribute, choices, **opts, **(opts[:input_options] || {})),
+            dsfr_label_with_hint(attribute, opts),
+            dsfr_select_tag(attribute, choices, **opts, **(input_options)),
             dsfr_error_message(attribute)
           ]
         )
