@@ -14,7 +14,6 @@ end
 
 ENV["RAILS_ENV"] ||= "test"
 
-require 'uri'
 require 'action_view'
 require 'active_support'
 require 'active_model'
