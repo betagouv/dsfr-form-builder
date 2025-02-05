@@ -14,6 +14,7 @@ end
 
 ENV["RAILS_ENV"] ||= "test"
 
+require 'uri' # necessary on github actions
 require 'action_view'
 require 'active_support'
 require 'active_model'
