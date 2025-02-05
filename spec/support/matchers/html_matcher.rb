@@ -34,4 +34,4 @@ RSpec::Matchers.define :match_html do |expected|
       #{beautify_html(@actual)}
     MSG
   end
-end 
+end
