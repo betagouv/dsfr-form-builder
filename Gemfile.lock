@@ -52,7 +52,6 @@ GEM
     diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.13.1)
-    htmlbeautifier (1.4.3)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
@@ -199,7 +198,6 @@ DEPENDENCIES
   actionview
   activemodel
   dsfr-form_builder!
-  htmlbeautifier (~> 1.4)
   nokogiri
   rspec
   rspec-rails (~> 7.0)
