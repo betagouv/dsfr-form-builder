@@ -1,6 +1,6 @@
 RSpec::Matchers.define :match_html do |expected|
   def normalize_html(html)
-    # we try and strip all whitespaces and new lines
+    # important to strip around the raw HTML input
     doc = Nokogiri::HTML.fragment(html.strip)
     # strip all attributes values
     doc.traverse do |node|
@@ -26,11 +26,10 @@ RSpec::Matchers.define :match_html do |expected|
 
   failure_message do
     <<~MSG
-      expected HTML to match
-      Expected:
+      --- Expected ---
       #{beautify_html(expected)}
 
-      Got:
+      --- Actual ---
       #{beautify_html(@actual)}
     MSG
   end
