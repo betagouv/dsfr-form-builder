@@ -15,7 +15,7 @@ class Record
   attr_accessor :name
 end
 
-RSpec.describe Dsfr::FormBuilder, type: :helper do
+RSpec.describe Dsfr::FormBuilder do
   let(:helper) { TestHelper.new }
   let(:object) { Record.new(name: 'Jean Paul') }
   let(:builder) { Dsfr::FormBuilder.new(:record, object, helper, {}) }
