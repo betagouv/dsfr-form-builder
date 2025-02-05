@@ -14,7 +14,10 @@ end
 
 ENV["RAILS_ENV"] ||= "test"
 
+require 'uri'
 require 'action_view'
 require 'active_support'
+require 'active_model'
+require 'nokogiri'
 
-Dir[File.expand_path("support/**/*.rb", __dir__)].sort.each { |f| require f }
+Dir[File.expand_path('{../lib/**/*.rb,support/**/*.rb}', __dir__)].sort.each { |f| require f }
