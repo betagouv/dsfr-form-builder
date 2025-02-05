@@ -25,6 +25,13 @@ RSpec::Matchers.define :match_html do |expected|
   end
 
   failure_message do
-    "expected HTML to match\nExpected:\n#{beautify_html(expected)}\n\nGot:\n#{beautify_html(@actual)}\n"
+    <<~MSG
+      expected HTML to match
+      Expected:
+      #{beautify_html(expected)}
+
+      Got:
+      #{beautify_html(@actual)}
+    MSG
   end
 end 
