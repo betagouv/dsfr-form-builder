@@ -1,10 +1,10 @@
-require_relative '../lib/dsfr-form_builder'
 require 'spec_helper'
+require 'uri'
 require 'action_view'
 require 'active_support'
 require 'active_model'
 require 'nokogiri'
-require 'uri'
+require_relative '../lib/dsfr-form_builder'
 
 class TestHelper
   include ActionView::Helpers::FormHelper
