@@ -26,6 +26,17 @@ RSpec.describe Dsfr::FormBuilder do
     end
   end
 
+  describe '#dsfr_text_area' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_text_area(:name)).to match_html(<<~HTML)
+        <div class="fr-input-group">
+          <label class="fr-label" for="record_name">Name</label>
+          <textarea class="fr-input" name="record[name]" id="record_name">Jean Paul</textarea>
+        </div>
+      HTML
+    end
+  end
+
   describe "#dsfr_radio_buttons" do
     it 'generates the correct HTML' do
       choices = [

@@ -16,6 +16,10 @@ module Dsfr
       dsfr_input_field(attribute, :text_field, opts)
     end
 
+    def dsfr_text_area(attribute, opts = {})
+      dsfr_input_field(attribute, :text_area, opts)
+    end
+
     def dsfr_email_field(attribute, opts = {})
       dsfr_input_field(attribute, :email_field, opts)
     end
