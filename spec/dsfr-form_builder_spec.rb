@@ -19,7 +19,7 @@ RSpec.describe Dsfr::FormBuilder do
     it 'generates the correct HTML' do
       expect(builder.dsfr_text_field(:name)).to match_html(<<~HTML)
         <div class="fr-input-group">
-          <label class="fr-label2" for="record_name">Name</label>
+          <label class="fr-label" for="record_name">Name</label>
           <input class="fr-input" type="text" value="Jean Paul" name="record[name]" id="record_name" />
         </div>
       HTML
