@@ -17,5 +17,6 @@ require 'action_view'
 require 'active_support'
 require 'active_model'
 require 'nokogiri'
+require 'diffy'
 
 Dir[File.expand_path('{../lib/**/*.rb,support/**/*.rb}', __dir__)].sort.each { |f| require f }
