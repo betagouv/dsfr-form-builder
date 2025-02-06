@@ -33,7 +33,7 @@ RSpec::Matchers.define :match_html do |expected|
   failure_message do
     expected_beautified = beautify_html(@expected_normalized)
     actual_beautified = beautify_html(@actual_normalized)
-    differences = Diffy::Diff.new(expected_beautified, actual_beautified).to_s(:text)
+    differences = Diffy::Diff.new(actual_beautified, expected_beautified).to_s(:text)
     <<~MSG
       --- Differences ---
       #{differences}
