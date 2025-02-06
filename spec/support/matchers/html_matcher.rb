@@ -18,10 +18,7 @@ RSpec::Matchers.define :match_html do |expected|
   end
 
   def beautify_html(html)
-    # Add line breaks after opening and closing tags
-    split = html.gsub(/(<[^>]*>)/, "\\1\n")
-    # now parse html and pretty print it
-    Nokogiri::HTML.fragment(split).to_xhtml(indent: 2)
+    Nokogiri::HTML.fragment(html).to_xhtml(indent: 2)
   end
 
   match do |actual|
