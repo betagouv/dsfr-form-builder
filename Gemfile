@@ -11,3 +11,4 @@ gem "actionview"
 gem "activemodel"
 gem "nokogiri"
 gem "uri" # necessary on github actions
+gem "diffy"
