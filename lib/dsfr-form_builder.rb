@@ -90,19 +90,19 @@ module Dsfr
         @template.safe_join(
           [
             @template.content_tag(:legend, legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
-            choices.map { |c| dsfr_radio_option(attribute, value: c[:value], label_text: c[:label], hint: c[:hint], **opts) }
+            choices.map { |c| dsfr_radio_option(attribute, value: c[:value], label_text: c[:label], hint: c[:hint], checked: c[:checked], **opts) }
           ]
         )
       end
     end
 
-    def dsfr_radio_option(attribute, value:, label_text:, hint:, rich: false, **opts)
+    def dsfr_radio_option(attribute, value:, label_text:, hint:, checked:, rich: false, **opts)
       @template.content_tag(:div, class: "fr-fieldset__element") do
         classes = rich ? "fr-radio-group fr-radio-rich" : "fr-radio-group"
         @template.content_tag(:div, class: classes) do
           @template.safe_join(
             [
-              radio_button(attribute, value, **opts),
+              radio_button(attribute, value, checked:, **opts),
               label([ attribute, value ].join("_").to_sym) do
                 @template.safe_join(
                   [
