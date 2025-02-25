@@ -96,9 +96,10 @@ module Dsfr
       end
     end
 
-    def dsfr_radio_option(attribute, value:, label_text:, hint:, **opts)
+    def dsfr_radio_option(attribute, value:, label_text:, hint:, rich: false, **opts)
       @template.content_tag(:div, class: "fr-fieldset__element") do
-        @template.content_tag(:div, class: "fr-radio-group") do
+        classes = rich ? "fr-radio-group fr-radio-rich" : "fr-radio-group"
+        @template.content_tag(:div, class: classes) do
           @template.safe_join(
             [
               radio_button(attribute, value, **opts),
