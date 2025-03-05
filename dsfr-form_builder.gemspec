@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.summary     = "Ruby on Rails form builder pour le Système de Design de l'État (DSFR)"
   spec.description = "Cette librairie de composants vise à simplifier la création de formulaire au DSFR (Système de Design de l'État) dans les applications web utilisant Ruby On Rails"
   spec.license     = 'MIT'
+  spec.metadata    = METADATA
 
   spec.files = Dir['lib/**/*']
 
