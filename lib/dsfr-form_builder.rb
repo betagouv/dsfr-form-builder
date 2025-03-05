@@ -54,12 +54,12 @@ module Dsfr
       end
     end
 
-    def dsfr_check_box(attribute, opts = {})
+    def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
       @template.content_tag(:div, class: "fr-checkbox-group") do
         @template.safe_join(
           [
-            check_box(attribute, opts),
-            label(attribute, class: "fr-label")
+            check_box(attribute, opts, checked_value, unchecked_value),
+            dsfr_label_with_hint(attribute, opts)
           ]
         )
       end

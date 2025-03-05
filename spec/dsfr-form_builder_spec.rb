@@ -37,6 +37,35 @@ RSpec.describe Dsfr::FormBuilder do
     end
   end
 
+  describe "#dsfr_check_box" do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_check_box(:name)).to match_html(<<~HTML)
+        <div class="fr-checkbox-group">
+          <input name="record[name]" type="hidden" value="0" autocomplete="off">
+          <input type="checkbox" value="1" name="record[name]" id="record_name" />
+          <label class="fr-label" for="record_name">Name</label>
+        </div>
+      HTML
+    end
+
+    context 'with label and hint personalisation' do
+      it 'generates the correct HTML' do
+        expect(builder.dsfr_check_box(:name, label: "Nom", hint: "Votre nom")).to match_html(<<~HTML)
+          <div class="fr-checkbox-group">
+            <input name="record[name]" type="hidden" value="0" autocomplete="off">
+            <input label="Nom" hint="Votre nom" type="checkbox" value="1" name="record[name]" id="record_name" />
+            <label class="fr-label" for="record_name">
+              Nom
+              <span class="fr-hint-text">
+                Votre nom
+              </span>
+            </label>
+          </div>
+        HTML
+      end
+    end
+  end
+
   describe "#dsfr_radio_buttons" do
     let(:choices) do
       [
@@ -96,48 +125,48 @@ RSpec.describe Dsfr::FormBuilder do
     context 'with rich option' do
       it 'generates the correct HTML' do
         expect(builder.dsfr_radio_buttons(:pronom, choices, legend: "Pronom", hint: hint, rich: true)).to match_html(<<~HTML)
-        <fieldset class="fr-fieldset">
-          <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
-            Pronom
-            <span class="fr-hint-text">
-              Choisissez le pronom qui vous correspond le mieux
-            </span>
-          </legend>
-          <div class="fr-fieldset__element">
-            <div class="fr-radio-group fr-radio-rich">
-              <input type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
-              <label for="record_pronom_elle">
-                Elle
-                <span class="fr-hint-text">
-                  « Elle était présente »
-                </span>
-              </label>
+          <fieldset class="fr-fieldset">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
+              Pronom
+              <span class="fr-hint-text">
+                Choisissez le pronom qui vous correspond le mieux
+              </span>
+            </legend>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group fr-radio-rich">
+                <input type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
+                <label for="record_pronom_elle">
+                  Elle
+                  <span class="fr-hint-text">
+                    « Elle était présente »
+                  </span>
+                </label>
+              </div>
             </div>
-          </div>
-          <div class="fr-fieldset__element">
-            <div class="fr-radio-group fr-radio-rich">
-              <input type="radio" value="il" checked="checked" name="record[pronom]" id="record_pronom_il">
-              <label for="record_pronom_il">
-                Il
-                <span class="fr-hint-text">
-                  « Il était présent »
-                </span>
-              </label>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group fr-radio-rich">
+                <input type="radio" value="il" checked="checked" name="record[pronom]" id="record_pronom_il">
+                <label for="record_pronom_il">
+                  Il
+                  <span class="fr-hint-text">
+                    « Il était présent »
+                  </span>
+                </label>
+              </div>
             </div>
-          </div>
-          <div class="fr-fieldset__element">
-            <div class="fr-radio-group fr-radio-rich">
-              <input type="radio" value="iel" name="record[pronom]" id="record_pronom_iel">
-              <label for="record_pronom_iel">
-                Iel
-                <span class="fr-hint-text">
-                  « Iel était présent·e »
-                </span>
-              </label>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group fr-radio-rich">
+                <input type="radio" value="iel" name="record[pronom]" id="record_pronom_iel">
+                <label for="record_pronom_iel">
+                  Iel
+                  <span class="fr-hint-text">
+                    « Iel était présent·e »
+                  </span>
+                </label>
+              </div>
             </div>
-          </div>
-        </fieldset>
-      HTML
+          </fieldset>
+        HTML
       end
     end
   end
