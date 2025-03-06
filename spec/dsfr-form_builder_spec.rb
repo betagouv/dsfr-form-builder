@@ -69,8 +69,8 @@ RSpec.describe Dsfr::FormBuilder do
   describe "#dsfr_radio_buttons" do
     let(:choices) do
       [
-        { value: "elle", label: "Elle", hint: "« Elle était présente »" },
-        { value: "il", label: "Il", hint: "« Il était présent »", checked: true },
+        { value: "elle", label: "Elle", hint: "« Elle était présente »", checked: true },
+        { value: "il", label: "Il", hint: "« Il était présent »", checked: false },
         { value: "iel", label: "Iel", hint: "« Iel était présent·e »" }
       ]
     end
@@ -87,7 +87,7 @@ RSpec.describe Dsfr::FormBuilder do
           </legend>
           <div class="fr-fieldset__element">
             <div class="fr-radio-group">
-              <input type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
+              <input type="radio" value="elle", checked="checked", name="record[pronom]" id="record_pronom_elle">
               <label for="record_pronom_elle">
                 Elle
                 <span class="fr-hint-text">
@@ -98,7 +98,7 @@ RSpec.describe Dsfr::FormBuilder do
           </div>
           <div class="fr-fieldset__element">
             <div class="fr-radio-group">
-              <input type="radio" value="il" checked="checked" name="record[pronom]" id="record_pronom_il">
+              <input type="radio" value="il" name="record[pronom]" id="record_pronom_il">
               <label for="record_pronom_il">
                 Il
                 <span class="fr-hint-text">
@@ -134,7 +134,7 @@ RSpec.describe Dsfr::FormBuilder do
             </legend>
             <div class="fr-fieldset__element">
               <div class="fr-radio-group fr-radio-rich">
-                <input type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
+                <input type="radio" value="elle" checked="checked" name="record[pronom]" id="record_pronom_elle">
                 <label for="record_pronom_elle">
                   Elle
                   <span class="fr-hint-text">
@@ -145,7 +145,7 @@ RSpec.describe Dsfr::FormBuilder do
             </div>
             <div class="fr-fieldset__element">
               <div class="fr-radio-group fr-radio-rich">
-                <input type="radio" value="il" checked="checked" name="record[pronom]" id="record_pronom_il">
+                <input type="radio" value="il" name="record[pronom]" id="record_pronom_il">
                 <label for="record_pronom_il">
                   Il
                   <span class="fr-hint-text">
