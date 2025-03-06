@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dsfr-form_builder (0.0.5)
+    dsfr-form_builder (0.0.6)
       actionview (>= 6.1, < 9.0)
       activemodel (>= 6.1, < 9.0)
       activesupport (>= 6.1, < 9.0)
