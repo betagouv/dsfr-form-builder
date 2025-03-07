@@ -40,10 +40,12 @@ RSpec.describe Dsfr::FormBuilder do
   describe "#dsfr_check_box" do
     it 'generates the correct HTML' do
       expect(builder.dsfr_check_box(:name)).to match_html(<<~HTML)
-        <div class="fr-checkbox-group">
-          <input name="record[name]" type="hidden" value="0" autocomplete="off">
-          <input type="checkbox" value="1" name="record[name]" id="record_name" />
-          <label class="fr-label" for="record_name">Name</label>
+        <div class="fr-fieldset__element">
+          <div class="fr-checkbox-group">
+            <input name="record[name]" type="hidden" value="0" autocomplete="off">
+            <input type="checkbox" value="1" name="record[name]" id="record_name" />
+            <label class="fr-label" for="record_name">Name</label>
+          </div>
         </div>
       HTML
     end
@@ -51,15 +53,17 @@ RSpec.describe Dsfr::FormBuilder do
     context 'with label and hint personalisation' do
       it 'generates the correct HTML' do
         expect(builder.dsfr_check_box(:name, label: "Nom", hint: "Votre nom")).to match_html(<<~HTML)
-          <div class="fr-checkbox-group">
-            <input name="record[name]" type="hidden" value="0" autocomplete="off">
-            <input label="Nom" hint="Votre nom" type="checkbox" value="1" name="record[name]" id="record_name" />
-            <label class="fr-label" for="record_name">
-              Nom
-              <span class="fr-hint-text">
-                Votre nom
-              </span>
-            </label>
+          <div class="fr-fieldset__element">
+            <div class="fr-checkbox-group">
+              <input name="record[name]" type="hidden" value="0" autocomplete="off">
+              <input label="Nom" hint="Votre nom" type="checkbox" value="1" name="record[name]" id="record_name" />
+              <label class="fr-label" for="record_name">
+                Nom
+                <span class="fr-hint-text">
+                  Votre nom
+                </span>
+              </label>
+            </div>
           </div>
         HTML
       end
