@@ -13,3 +13,6 @@ gem "activemodel"
 gem "nokogiri"
 gem "uri" # necessary on github actions
 gem "diffy"
+gem "adsf"
+gem "nanoc"
+gem "nanoc-live"

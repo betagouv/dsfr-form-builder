@@ -1,2 +1,4 @@
 *.gem
 coverage
+guide/output
+guide/tmp
