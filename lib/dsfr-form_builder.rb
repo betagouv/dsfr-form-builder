@@ -125,7 +125,7 @@ module Dsfr
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
-            dsfr_select_tag(attribute, choices, **opts, **(input_options)),
+            dsfr_select_tag(attribute, choices, opts.merge(input_options)),
             dsfr_error_message(attribute)
           ]
         )
