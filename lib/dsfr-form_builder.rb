@@ -154,8 +154,8 @@ module Dsfr
       @template.content_tag(:span, text, class: "fr-hint-text")
     end
 
-    def join_classes(arr)
-      arr.compact.join(" ")
+    def join_classes(*arr)
+      Array.wrap(arr).compact.join(" ")
     end
 
     def input_group_classes(attribute, opts)
