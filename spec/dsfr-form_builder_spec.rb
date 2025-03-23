@@ -117,6 +117,38 @@ RSpec.describe Dsfr::FormBuilder do
     end
   end
 
+  describe "#dsfr_select" do
+    let(:choices) { [["Option 1", 1], ["Option 2", 2]] }
+
+    it "generates the correct HTML" do
+      expect(builder.dsfr_select(:pronom, choices)).to match_html(<<~HTML)
+        <div class="fr-select-group">
+          <label class="fr-label" for="record_pronom">Pronom</label>
+          <select class="fr-select" name="record[pronom]" id="record_pronom">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </select>
+        </div>
+      HTML
+    end
+
+    it "supports required, hint and include_blank options" do
+      expect(builder.dsfr_select(:pronom, choices, hint: "Choisissez votre pronom", include_blank: "Choisissez une option")).to match_html(<<~HTML)
+        <div class="fr-select-group">
+          <label class="fr-label" for="record_pronom">
+            Pronom
+            <span class="fr-hint-text">Choisissez votre pronom</span>
+          </label>
+          <select required="required" class="fr-select" name="record[pronom]" id="record_pronom">
+            <option value="">Choisissez une option</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </select>
+        </div>
+      HTML
+    end
+  end
+
   describe "#dsfr_check_box" do
     it 'generates the correct HTML' do
       expect(builder.dsfr_check_box(:name)).to match_html(<<~HTML)
