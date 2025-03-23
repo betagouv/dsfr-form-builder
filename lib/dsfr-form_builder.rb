@@ -80,7 +80,7 @@ module Dsfr
     end
 
     def dsfr_select(attribute, choices, input_options: {}, **opts)
-      @template.content_tag(:div, class: "fr-select-group") do
+      @template.content_tag(:div, class: join_classes("fr-select-group", @object.errors[attribute].any? ? "fr-select-group--error" : nil)) do
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
