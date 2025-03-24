@@ -37,6 +37,29 @@ RSpec.describe Dsfr::FormBuilder do
     end
   end
 
+  describe '#dsfr_file_field' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_file_field(:name)).to match_html(<<~HTML)
+        <div class="fr-upload-group">
+          <label class="fr-label" for="record_name">Name</label>
+          <input class="fr-upload" type="file" name="record[name]" id="record_name" />
+        </div>
+      HTML
+    end 
+    it "supports hint and required options" do
+      expect(builder.dsfr_file_field(:name, hint: "Upload a file", required: true)).to match_html(<<~HTML)
+        <div class="fr-upload-group">
+          <label class="fr-label" for="record_name">
+            Name
+            <span class="fr-text-error">*</span>
+            <span class="fr-hint-text">Upload a file</span>
+          </label>
+          <input class="fr-upload" required="required" type="file" name="record[name]" id="record_name" />
+        </div>
+      HTML
+    end
+  end
+
   describe "#dsfr_select" do
     let(:choices) { [["Option 1", 1], ["Option 2", 2]] }
 
@@ -51,7 +74,6 @@ RSpec.describe Dsfr::FormBuilder do
         </div>
       HTML
     end
-
     it "supports required, hint and include_blank options" do
       expect(builder.dsfr_select(:pronom, choices, hint: "Choisissez votre pronom", include_blank: "Choisissez une option")).to match_html(<<~HTML)
         <div class="fr-select-group">
