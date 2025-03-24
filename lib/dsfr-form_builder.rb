@@ -47,9 +47,21 @@ module Dsfr
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
-            public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint)),
+            public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label, :data)),
             dsfr_error_message(attribute)
           ]
+        )
+      end
+    end
+
+    def dsfr_file_field(attribute, opts = {})
+      @template.content_tag(:div, class: upload_group_classes(attribute, opts), data: opts[:data]) do
+        @template.safe_join(
+          [
+            dsfr_label_with_hint(attribute, opts.except(:class)),
+            file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
+            dsfr_error_message(attribute)
+          ].compact
         )
       end
     end
@@ -163,6 +175,16 @@ module Dsfr
         [
           "fr-input-group",
           @object.errors[attribute].any? ? "fr-input-group--error" : nil,
+          opts[:class]
+        ]
+      )
+    end
+
+    def upload_group_classes(attribute, opts)
+      join_classes(
+        [
+          "fr-upload-group",
+          @object.errors[attribute].any? ? "fr-upload-group--error" : nil,
           opts[:class]
         ]
       )
