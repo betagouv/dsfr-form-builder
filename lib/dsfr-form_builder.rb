@@ -80,11 +80,11 @@ module Dsfr
     end
 
     def dsfr_select(attribute, choices, input_options: {}, **opts)
-      @template.content_tag(:div, class: "fr-select-group") do
+      @template.content_tag(:div, class: join_classes("fr-select-group", @object.errors[attribute].any? ? "fr-select-group--error" : nil)) do
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
-            dsfr_select_tag(attribute, choices, **opts, **(input_options)),
+            dsfr_select_tag(attribute, choices, opts.merge(input_options)),
             dsfr_error_message(attribute)
           ]
         )
@@ -166,8 +166,8 @@ module Dsfr
       @template.content_tag(:span, text, class: "fr-hint-text")
     end
 
-    def join_classes(arr)
-      arr.compact.join(" ")
+    def join_classes(*arr)
+      Array.wrap(arr).compact.join(" ")
     end
 
     def input_group_classes(attribute, opts)
