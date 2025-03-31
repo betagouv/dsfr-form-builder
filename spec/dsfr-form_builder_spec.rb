@@ -3,6 +3,7 @@ require 'spec_helper'
 class TestHelper
   include ActionView::Helpers::FormHelper
   include ActionView::Helpers::FormTagHelper
+  include ActionView::Helpers::FormOptionsHelper
 end
 
 class Record
