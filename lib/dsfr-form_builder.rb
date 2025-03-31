@@ -125,7 +125,7 @@ module Dsfr
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
-            dsfr_select_tag(attribute, choices, opts.merge(input_options)),
+            dsfr_select_tag(attribute, choices, opts.merge(input_options).except(:hint, :name)),
             dsfr_error_message(attribute)
           ]
         )
@@ -133,7 +133,9 @@ module Dsfr
     end
 
     def dsfr_select_tag(attribute, choices, opts)
-      select(attribute, choices, { include_blank: opts[:include_blank] }, class: "fr-select")
+      opts[:class] = join_classes("fr-select", opts[:class])
+      include_blank = opts.delete(:include_blank)
+      select(attribute, choices, { include_blank: }, **opts)
     end
 
     def dsfr_radio_buttons(attribute, choices, legend: nil, hint: nil, **opts)
