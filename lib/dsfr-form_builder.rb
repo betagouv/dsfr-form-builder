@@ -92,7 +92,7 @@ module Dsfr
     end
 
     def dsfr_select_tag(attribute, choices, opts)
-      select(attribute, choices, { include_blank: opts[:include_blank] }, class: "fr-select")
+      select(attribute, choices, { include_blank: opts[:include_blank], selected: opts[:selected] }, class: "fr-select")
     end
 
     def dsfr_radio_buttons(attribute, choices, legend: nil, hint: nil, **opts)
