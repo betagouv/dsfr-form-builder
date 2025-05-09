@@ -25,6 +25,14 @@ RSpec.describe Dsfr::FormBuilder do
         </div>
       HTML
     end
+
+    context 'when object is nil' do
+      let(:object) { nil }
+
+      it "doesn't raise" do
+        expect { builder.dsfr_text_field(:name, label: "Label") }.not_to raise_error
+      end
+    end
   end
 
   describe '#dsfr_text_area' do
@@ -35,6 +43,14 @@ RSpec.describe Dsfr::FormBuilder do
           <textarea class="fr-input" name="record[name]" id="record_name">Jean Paul</textarea>
         </div>
       HTML
+    end
+
+    context 'when object is nil' do
+      let(:object) { nil }
+
+      it "doesn't raise" do
+        expect { builder.dsfr_text_area(:name, label: "Label") }.not_to raise_error
+      end
     end
   end
 
@@ -59,6 +75,14 @@ RSpec.describe Dsfr::FormBuilder do
           <input class="fr-upload" required="required" type="file" name="record[name]" id="record_name" />
         </div>
       HTML
+    end
+
+    context 'when object is nil' do
+      let(:object) { nil }
+
+      it "doesn't raise" do
+        expect { builder.dsfr_file_field(:name, label: "Label") }.not_to raise_error
+      end
     end
   end
 
@@ -124,6 +148,14 @@ RSpec.describe Dsfr::FormBuilder do
             </div>
           </div>
         HTML
+      end
+    end
+
+    context 'when object is nil' do
+      let(:object) { nil }
+
+      it "doesn't raise" do
+        expect { builder.dsfr_check_box(:name, label: "Label") }.not_to raise_error
       end
     end
   end
@@ -229,6 +261,14 @@ RSpec.describe Dsfr::FormBuilder do
             </div>
           </fieldset>
         HTML
+      end
+    end
+
+    context 'when object is nil' do
+      let(:object) { nil }
+
+      it "doesn't raise" do
+        expect { builder.dsfr_radio_buttons(:pronom, choices, legend: "Legend", label_text: "Label") }.not_to raise_error
       end
     end
   end

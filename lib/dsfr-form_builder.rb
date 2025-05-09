@@ -149,7 +149,7 @@ module Dsfr
     end
 
     def dsfr_error_message(attr)
-      return if @object.errors[attr].none?
+      return if @object.nil? || @object.errors[attr].none?
 
       @template.content_tag(:p, class: "fr-messages-group") do
         safe_join(@object.errors.full_messages_for(attr).map do |msg|
@@ -176,7 +176,7 @@ module Dsfr
       join_classes(
         [
           "fr-input-group",
-          @object.errors[attribute].any? ? "fr-input-group--error" : nil,
+          @object && @object.errors[attribute].any? ? "fr-input-group--error" : nil,
           opts[:class]
         ]
       )
@@ -186,7 +186,7 @@ module Dsfr
       join_classes(
         [
           "fr-upload-group",
-          @object.errors[attribute].any? ? "fr-upload-group--error" : nil,
+          @object && @object.errors[attribute].any? ? "fr-upload-group--error" : nil,
           opts[:class]
         ]
       )
