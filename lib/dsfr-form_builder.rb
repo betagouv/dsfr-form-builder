@@ -70,7 +70,7 @@ module Dsfr
       @template.content_tag(:div, class: "fr-fieldset__element #{'fr-fieldset__element--inline' if opts.delete(:inline)}") do
         @template.content_tag(:div, class: "fr-checkbox-group") do
           @template.safe_join([
-            check_box(attribute, opts, checked_value, unchecked_value),
+            check_box(attribute, opts.except(:label, :hint), checked_value, unchecked_value),
             dsfr_label_with_hint(attribute, opts)
           ])
         end
