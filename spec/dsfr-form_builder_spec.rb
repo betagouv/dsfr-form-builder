@@ -100,8 +100,8 @@ RSpec.describe Dsfr::FormBuilder do
 
     context "with custom settings" do
       it 'generates the correct HTML' do
-        expect(builder.dsfr_check_box(:name, { label: "Nom", hint: "Votre nom" }, "checked", "unchecked")).to match_html(<<~HTML)
-          <div class="fr-fieldset__element">
+        expect(builder.dsfr_check_box(:name, { label: "Nom", hint: "Votre nom", inline: true }, "checked", "unchecked")).to match_html(<<~HTML)
+          <div class="fr-fieldset__element fr-fieldset__element--inline">
             <div class="fr-checkbox-group">
               <input name="record[name]" type="hidden" value="unchecked" autocomplete="off">
               <input label="Nom" hint="Votre nom" type="checkbox" value="checked" name="record[name]" id="record_name" />

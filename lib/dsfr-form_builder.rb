@@ -67,7 +67,7 @@ module Dsfr
     end
 
     def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
-      @template.content_tag(:div, class: "fr-fieldset__element") do
+      @template.content_tag(:div, class: "fr-fieldset__element #{'fr-fieldset__element--inline' if opts.delete(:inline)}") do
         @template.content_tag(:div, class: "fr-checkbox-group") do
           @template.safe_join([
             check_box(attribute, opts, checked_value, unchecked_value),
