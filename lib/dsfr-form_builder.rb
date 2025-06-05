@@ -101,8 +101,8 @@ module Dsfr
     def dsfr_radio_buttons(attribute, choices, legend: nil, hint: nil, **opts)
       legend_content = @template.safe_join([
         legend || @object.class.human_attribute_name(attribute),
-        hint ? hint_tag(hint) : nil
-      ].compact)
+        hint_tag(hint)
+      ])
       @template.content_tag(:fieldset, class: "fr-fieldset") do
         @template.safe_join(
           [
@@ -124,7 +124,7 @@ module Dsfr
                 @template.safe_join(
                   [
                     label_text,
-                    hint.present? ? @template.content_tag(:span, hint, class: "fr-hint-text") : nil
+                    hint_tag(hint)
                   ]
                 )
               end
@@ -160,9 +160,7 @@ module Dsfr
     end
 
     def hint_tag(text)
-      return "" unless text
-
-      @template.content_tag(:span, text, class: "fr-hint-text")
+      @template.content_tag(:span, text, class: "fr-hint-text") if text
     end
 
     def join_classes(arr)
