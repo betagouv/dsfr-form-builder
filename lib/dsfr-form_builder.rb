@@ -36,8 +36,13 @@ module Dsfr
       dsfr_input_field(attribute, :number_field, opts)
     end
 
-    def dsfr_input_group(attribute, opts, &block)
-      @template.content_tag(:div, class: input_group_classes(attribute, opts), data: opts[:data]) do
+    def dsfr_input_group(attribute, opts, kind: :input, &block)
+      classes = join_classes([
+        "fr-#{kind}-group",
+        ("fr-#{kind}-group--error" if @object&.errors&.include?(attribute)),
+        opts[:class]
+      ])
+      @template.content_tag(:div, class: classes, data: opts[:data]) do
         yield(block)
       end
     end
@@ -55,7 +60,7 @@ module Dsfr
     end
 
     def dsfr_file_field(attribute, opts = {})
-      @template.content_tag(:div, class: upload_group_classes(attribute, opts), data: opts[:data]) do
+      dsfr_input_group(attribute, opts, kind: :upload) do
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts.except(:class)),
@@ -68,7 +73,7 @@ module Dsfr
 
     def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
       @template.content_tag(:div, class: "fr-fieldset__element #{'fr-fieldset__element--inline' if opts.delete(:inline)}") do
-        @template.content_tag(:div, class: "fr-checkbox-group") do
+        dsfr_input_group(attribute, opts, kind: :checkbox) do
           @template.safe_join([
             check_box(attribute, opts.except(:label, :hint), checked_value, unchecked_value),
             dsfr_label_with_hint(attribute, opts)
@@ -78,7 +83,7 @@ module Dsfr
     end
 
     def dsfr_select(attribute, choices, input_options: {}, **opts)
-      @template.content_tag(:div, class: "fr-select-group") do
+      dsfr_input_group(attribute, opts, kind: :select) do
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
@@ -166,26 +171,6 @@ module Dsfr
 
     def join_classes(arr)
       arr.compact.join(" ")
-    end
-
-    def input_group_classes(attribute, opts)
-      join_classes(
-        [
-          "fr-input-group",
-          @object && @object.errors[attribute].any? ? "fr-input-group--error" : nil,
-          opts[:class]
-        ]
-      )
-    end
-
-    def upload_group_classes(attribute, opts)
-      join_classes(
-        [
-          "fr-upload-group",
-          @object && @object.errors[attribute].any? ? "fr-upload-group--error" : nil,
-          opts[:class]
-        ]
-      )
     end
 
     def label_value(attribute, opts)
