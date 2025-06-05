@@ -162,10 +162,6 @@ module Dsfr
     def hint_tag(text)
       return "" unless text
 
-      @template.content_tag(:span, class: "fr-hint-text") do
-        text
-      end
-
       @template.content_tag(:span, text, class: "fr-hint-text")
     end
 
