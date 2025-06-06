@@ -175,7 +175,7 @@ module Dsfr
     def dsfr_label_with_hint(attribute, opts = {})
       label_class = "fr-label #{opts[:class]}"
       label(attribute, class: label_class, value: opts[:value]) do
-        label_and_tags = [ label_value(attribute, opts) ]
+        label_and_tags = [ opts[:label_text] || label_value(attribute, opts) ]
         label_and_tags.push(required_tag) if opts[:required] && display_required_tags
         label_and_tags.push(hint_tag(opts[:hint])) if opts[:hint]
 
