@@ -109,7 +109,7 @@ RSpec.describe Dsfr::FormBuilder do
             <span class="fr-text-error">*</span>
             <span class="fr-hint-text">Choisissez votre pronom</span>
           </label>
-          <select class="fr-select" name="record[pronom]" id="record_pronom" required="required">
+          <select required="required" class="fr-select" name="record[pronom]" id="record_pronom">
             <option value="">Choisissez une option</option>
             <option value="1">Option 1</option>
             <option value="2">Option 2</option>
