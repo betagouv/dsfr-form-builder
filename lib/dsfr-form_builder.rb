@@ -115,14 +115,7 @@ module Dsfr
           @template.safe_join(
             [
               radio_button(attribute, value, checked:, **opts),
-              label([ attribute, value ].join("_").to_sym) do
-                @template.safe_join(
-                  [
-                    label_text,
-                    hint.present? ? @template.content_tag(:span, hint, class: "fr-hint-text") : nil
-                  ]
-                )
-              end
+              dsfr_label_with_hint(attribute, opts.merge(label_text: label_text, hint: hint, value: value))
             ]
           )
         end

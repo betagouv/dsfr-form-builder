@@ -148,7 +148,7 @@ RSpec.describe Dsfr::FormBuilder do
           <div class="fr-fieldset__element">
             <div class="fr-radio-group">
               <input type="radio" value="elle", checked="checked", name="record[pronom]" id="record_pronom_elle">
-              <label for="record_pronom_elle">
+              <label class="fr-label" for="record_pronom_elle">
                 Elle
                 <span class="fr-hint-text">
                   « Elle était présente »
@@ -159,7 +159,7 @@ RSpec.describe Dsfr::FormBuilder do
           <div class="fr-fieldset__element">
             <div class="fr-radio-group">
               <input type="radio" value="il" name="record[pronom]" id="record_pronom_il">
-              <label for="record_pronom_il">
+              <label class="fr-label" for="record_pronom_il">
                 Il
                 <span class="fr-hint-text">
                   « Il était présent »
@@ -170,7 +170,7 @@ RSpec.describe Dsfr::FormBuilder do
           <div class="fr-fieldset__element">
             <div class="fr-radio-group">
               <input type="radio" value="iel" name="record[pronom]" id="record_pronom_iel">
-              <label for="record_pronom_iel">
+              <label class="fr-label" for="record_pronom_iel">
                 Iel
                 <span class="fr-hint-text">
                   « Iel était présent·e »
@@ -195,7 +195,7 @@ RSpec.describe Dsfr::FormBuilder do
             <div class="fr-fieldset__element">
               <div class="fr-radio-group fr-radio-rich">
                 <input type="radio" value="elle" checked="checked" name="record[pronom]" id="record_pronom_elle">
-                <label for="record_pronom_elle">
+                <label class="fr-label" for="record_pronom_elle">
                   Elle
                   <span class="fr-hint-text">
                     « Elle était présente »
@@ -206,7 +206,7 @@ RSpec.describe Dsfr::FormBuilder do
             <div class="fr-fieldset__element">
               <div class="fr-radio-group fr-radio-rich">
                 <input type="radio" value="il" name="record[pronom]" id="record_pronom_il">
-                <label for="record_pronom_il">
+                <label class="fr-label" for="record_pronom_il">
                   Il
                   <span class="fr-hint-text">
                     « Il était présent »
@@ -217,7 +217,7 @@ RSpec.describe Dsfr::FormBuilder do
             <div class="fr-fieldset__element">
               <div class="fr-radio-group fr-radio-rich">
                 <input type="radio" value="iel" name="record[pronom]" id="record_pronom_iel">
-                <label for="record_pronom_iel">
+                <label class="fr-label" for="record_pronom_iel">
                   Iel
                   <span class="fr-hint-text">
                     « Iel était présent·e »
