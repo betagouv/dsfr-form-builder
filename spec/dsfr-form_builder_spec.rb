@@ -126,6 +126,71 @@ RSpec.describe Dsfr::FormBuilder do
     end
   end
 
+  describe "#dsfr_collection_check_boxes" do
+    Item = Struct.new(:id, :name, keyword_init: true)
+
+    let(:collection) { [ Item.new(id: 1, name: "Option 1"), Item.new(id: 2, name: "Option 2") ] }
+
+    it "generates the correct HTML" do
+      expect(builder.dsfr_collection_check_boxes(:tags, collection, :id, :name)).to match_html(<<~HTML)
+        <fieldset class="fr-fieldset">
+          <legend class="fr-fieldset__legend--regular fr-fieldset__legend">Tags</legend>
+          <input type="hidden" name="record[tags][]" value="" autocomplete="off">
+          <div class="fr-fieldset__element">
+            <div class="fr-checkbox-group">
+              <input name="record[tags][]" value="1" id="record_tags_1" type="checkbox" />
+              <label class="fr-label" for="record_tags_1">Option 1</label>
+            </div>
+          </div>
+          <div class="fr-fieldset__element">
+            <div class="fr-checkbox-group">
+              <input name="record[tags][]" value="2" id="record_tags_2" type="checkbox" />
+              <label class="fr-label" for="record_tags_2">Option 2</label>
+            </div>
+          </div>
+        </fieldset>
+      HTML
+    end
+
+    context "with all options combined" do
+      it "generates the correct HTML" do
+        expect(builder.dsfr_collection_check_boxes(:tags, collection, :id, :name,
+          { legend: "Choose tags", hint: "Select multiple options", name: "custom[field][]", inline: true },
+          { class: "custom-class", data: { testid: "collection" } })).to match_html(<<~HTML)
+          <fieldset class="fr-fieldset custom-class" data-testid="collection">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
+              Choose tags
+              <span class="fr-hint-text">
+                Select multiple options
+              </span>
+            </legend>
+            <input type="hidden" name="custom[field][]" value="" autocomplete="off">
+            <div class="fr-fieldset__element fr-fieldset__element--inline">
+              <div class="fr-checkbox-group">
+                <input name="custom[field][]" value="1" id="record_tags_1" type="checkbox" />
+                <label class="fr-label" for="record_tags_1">Option 1</label>
+              </div>
+            </div>
+            <div class="fr-fieldset__element fr-fieldset__element--inline">
+              <div class="fr-checkbox-group">
+                <input name="custom[field][]" value="2" id="record_tags_2" type="checkbox" />
+                <label class="fr-label" for="record_tags_2">Option 2</label>
+              </div>
+            </div>
+          </fieldset>
+        HTML
+      end
+    end
+
+    context "when object is nil" do
+      let(:object) { nil }
+
+      it "doesn't raise" do
+        expect { builder.dsfr_collection_check_boxes(:tags, collection, :id, :name, legend: "Choose tags") }.not_to raise_error
+      end
+    end
+  end
+
   describe "#dsfr_radio_buttons" do
     let(:choices) do
       [
