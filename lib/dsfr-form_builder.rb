@@ -1,7 +1,6 @@
 module Dsfr
   include ActiveSupport::Configurable
 
-
   class FormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::OutputSafetyHelper
 
@@ -82,6 +81,35 @@ module Dsfr
       end
     end
 
+    def dsfr_collection_check_boxes(method, collection, value_method, text_method, opts = {}, html_options = {})
+      legend = opts.delete(:legend) || @object&.class&.human_attribute_name(method)
+      if legend.blank?
+        raise ArgumentError.new("Please provide the legend option, or use an object whose class responds to :human_attribute_name")
+      end
+      legend = @template.safe_join([ legend, hint_tag(opts.delete(:hint)) ])
+      name = opts.delete(:name) || "#{@object_name}[#{method}][]"
+      html_options[:class] = [ "fr-fieldset", html_options[:class] ].compact.join(" ")
+      @template.content_tag(:fieldset, **html_options) do
+        @template.safe_join([
+          @template.content_tag(:legend, legend, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
+          @template.hidden_field_tag(name, "", id: nil),
+          collection.map do |item|
+            value = item.send(value_method)
+            checkbox_options = {
+              name: name,
+              value: value,
+              id: field_id(method, value),
+              label: item.send(text_method),
+              inline: opts[:inline],
+              checked: selected?(method, value),
+              include_hidden: false
+            }
+            dsfr_check_box(method, checkbox_options, value, "")
+          end
+        ])
+      end
+    end
+
     def dsfr_select(attribute, choices, input_options: {}, **opts)
       dsfr_input_group(attribute, opts, kind: :select) do
         @template.safe_join(
@@ -136,7 +164,7 @@ module Dsfr
 
     def dsfr_label_with_hint(attribute, opts = {})
       label_class = "fr-label #{opts[:class]}"
-      label(attribute, class: label_class) do
+      label(attribute, class: label_class, value: opts[:value]) do
         label_and_tags = [ label_value(attribute, opts) ]
         label_and_tags.push(required_tag) if opts[:required] && display_required_tags
         label_and_tags.push(hint_tag(opts[:hint])) if opts[:hint]
@@ -171,6 +199,15 @@ module Dsfr
       return opts[:label] if opts[:label]
 
       (@object.try(:object) || @object).class.human_attribute_name(attribute)
+    end
+
+    private
+
+    # TODO: Allow this helper to be used by select options and radio buttons.
+    def selected?(method, value)
+      return unless @object.respond_to?(method)
+
+      (@object.send(method) || []).include?(value)
     end
   end
 end
