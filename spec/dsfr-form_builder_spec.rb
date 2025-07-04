@@ -3,6 +3,7 @@ require 'spec_helper'
 class TestHelper
   include ActionView::Helpers::FormHelper
   include ActionView::Helpers::FormTagHelper
+  include ActionView::Helpers::FormOptionsHelper
 end
 
 class Record
@@ -114,6 +115,39 @@ RSpec.describe Dsfr::FormBuilder do
       it "doesn't raise" do
         expect { builder.dsfr_file_field(:name, label: "Label") }.not_to raise_error
       end
+    end
+  end
+
+  describe "#dsfr_select" do
+    let(:choices) { [ [ "Option 1", 1 ], [ "Option 2", 2 ] ] }
+
+    it "generates the correct HTML" do
+      expect(builder.dsfr_select(:pronom, choices)).to match_html(<<~HTML)
+        <div class="fr-select-group">
+          <label class="fr-label" for="record_pronom">Pronom</label>
+          <select class="fr-select" name="record[pronom]" id="record_pronom">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </select>
+        </div>
+      HTML
+    end
+
+    it "supports required, hint and include_blank options" do
+      expect(builder.dsfr_select(:pronom, choices, required: true, hint: "Choisissez votre pronom", include_blank: "Choisissez une option")).to match_html(<<~HTML)
+        <div class="fr-select-group">
+          <label class="fr-label" for="record_pronom">
+            Pronom
+            <span class="fr-text-error">*</span>
+            <span class="fr-hint-text">Choisissez votre pronom</span>
+          </label>
+          <select required="required" class="fr-select" name="record[pronom]" id="record_pronom">
+            <option value="">Choisissez une option</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </select>
+        </div>
+      HTML
     end
   end
 
