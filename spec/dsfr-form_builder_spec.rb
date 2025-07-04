@@ -15,6 +15,38 @@ RSpec.describe Dsfr::FormBuilder do
   let(:object) { Record.new(name: 'Jean Paul', pronom: "il") }
   let(:builder) { Dsfr::FormBuilder.new(:record, object, helper, {}) }
 
+  describe '#dsfr_button' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_button("Button")).to match_html(<<~HTML.strip)
+        <button name="button" type="button" class="fr-btn">Button</button>
+      HTML
+    end
+
+    context 'when passing options' do
+      it 'generates the correct HTML' do
+        expect(builder.dsfr_button("Button", name: nil, class: "extra-class", data: { controller: :rails }, aria: { busy: true })).to match_html(<<~HTML.strip)
+          <button type="button" class="fr-btn extra-class" data-controller="rails" aria-busy="true">Button</button>
+        HTML
+      end
+    end
+  end
+
+  describe '#dsfr_submit' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_submit("Submit")).to match_html(<<~HTML.strip)
+        <button name="button" type="submit" class="fr-btn">Submit</button>
+      HTML
+    end
+
+    context 'when passing options' do
+      it 'generates the correct HTML' do
+        expect(builder.dsfr_submit("Submit", name: nil, class: "extra-class", data: { controller: :rails }, aria: { busy: true })).to match_html(<<~HTML.strip)
+          <button type="submit" class="fr-btn extra-class" data-controller="rails" aria-busy="true">Submit</button>
+        HTML
+      end
+    end
+  end
+
   describe '#dsfr_text_field' do
     it 'generates the correct HTML' do
       expect(builder.dsfr_text_field(:name)).to match_html(<<~HTML)

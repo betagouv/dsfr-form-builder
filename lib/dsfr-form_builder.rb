@@ -11,6 +11,16 @@ module Dsfr
       self.display_required_tags = options.fetch(:display_required_tags, true)
     end
 
+    def dsfr_button(value, options = {})
+      options[:type] ||= :button
+      options[:class] = join_classes([ "fr-btn", options[:class] ])
+      button(value, options)
+    end
+
+    def dsfr_submit(value, options = {})
+      dsfr_button(value, options.merge(type: :submit))
+    end
+
     def dsfr_text_field(attribute, opts = {})
       dsfr_input_field(attribute, :text_field, opts)
     end
