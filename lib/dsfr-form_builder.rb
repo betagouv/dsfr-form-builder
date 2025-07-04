@@ -21,31 +21,15 @@ module Dsfr
     end
 
     def dsfr_submit(value, options = {})
-      dsfr_button(value, options.merge(type: :submit))
+      options[:type] = :submit
+
+      dsfr_button(value, options)
     end
 
-    def dsfr_text_field(attribute, opts = {})
-      dsfr_input_field(attribute, :text_field, opts)
-    end
-
-    def dsfr_text_area(attribute, opts = {})
-      dsfr_input_field(attribute, :text_area, opts)
-    end
-
-    def dsfr_email_field(attribute, opts = {})
-      dsfr_input_field(attribute, :email_field, opts)
-    end
-
-    def dsfr_url_field(attribute, opts = {})
-      dsfr_input_field(attribute, :url_field, opts)
-    end
-
-    def dsfr_phone_field(attribute, opts = {})
-      dsfr_input_field(attribute, :phone_field, opts)
-    end
-
-    def dsfr_number_field(attribute, opts = {})
-      dsfr_input_field(attribute, :number_field, opts)
+    %i[text_field text_area email_field url_field phone_field number_field].each do |field_type|
+      define_method("dsfr_#{field_type}") do |attribute, **options|
+        dsfr_input_field(attribute, field_type, **options)
+      end
     end
 
     def dsfr_input_group(attribute, opts, kind: :input, &block)
