@@ -13,7 +13,7 @@ module Dsfr
 
     def dsfr_button(value, options = {})
       options[:type] ||= :button
-      options[:class] = join_classes([ "fr-btn", options[:class] ])
+      options[:class] = join_classes("fr-btn", options[:class])
       button(value, options)
     end
 
@@ -46,11 +46,11 @@ module Dsfr
     end
 
     def dsfr_input_group(attribute, opts, kind: :input, &block)
-      classes = join_classes([
+      classes = join_classes(
         "fr-#{kind}-group",
         ("fr-#{kind}-group--error" if @object&.errors&.include?(attribute)),
         opts[:class]
-      ])
+      )
       @template.content_tag(:div, class: classes, data: opts[:data]) do
         yield(block)
       end
@@ -125,7 +125,7 @@ module Dsfr
         @template.safe_join(
           [
             dsfr_label_with_hint(attribute, opts),
-            dsfr_select_tag(attribute, choices, **opts, **(input_options)),
+            dsfr_select_tag(attribute, choices, opts.merge(input_options).except(:hint, :name)),
             dsfr_error_message(attribute)
           ]
         )
@@ -133,7 +133,10 @@ module Dsfr
     end
 
     def dsfr_select_tag(attribute, choices, opts)
-      select(attribute, choices, { include_blank: opts[:include_blank] }, class: "fr-select")
+      opts[:class] = join_classes("fr-select", opts[:class])
+      options = opts.slice(:include_blank, :selected, :disabled)
+      html_options = opts.except(:include_blank, :selected, :disabled)
+      select(attribute, choices, options, **html_options)
     end
 
     def dsfr_radio_buttons(attribute, choices, legend: nil, hint: nil, **opts)
@@ -194,8 +197,8 @@ module Dsfr
       @template.content_tag(:span, text, class: "fr-hint-text") if text
     end
 
-    def join_classes(arr)
-      arr.compact.join(" ")
+    def join_classes(*arr)
+      Array.wrap(arr).compact.join(" ")
     end
 
     def label_value(attribute, opts)
