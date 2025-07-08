@@ -30,6 +30,22 @@ RSpec.describe Dsfr::FormBuilder do
         HTML
       end
     end
+
+    context 'when called with a block' do
+      it 'generates the correct HTML' do
+        result = builder.dsfr_button { "Block Content" }
+        expect(result).to match_html(<<~HTML.strip)
+          <button name="button" type="button" class="fr-btn">Block Content</button>
+        HTML
+      end
+
+      it 'accepts options when called with a block' do
+        result = builder.dsfr_button(class: "extra-class", data: { controller: :rails }) { "Block Content" }
+        expect(result).to match_html(<<~HTML.strip)
+          <button name="button" type="button" class="fr-btn extra-class" data-controller="rails">Block Content</button>
+        HTML
+      end
+    end
   end
 
   describe '#dsfr_submit' do
@@ -43,6 +59,22 @@ RSpec.describe Dsfr::FormBuilder do
       it 'generates the correct HTML' do
         expect(builder.dsfr_submit("Submit", name: nil, class: "extra-class", data: { controller: :rails }, aria: { busy: true })).to match_html(<<~HTML.strip)
           <button type="submit" class="fr-btn extra-class" data-controller="rails" aria-busy="true">Submit</button>
+        HTML
+      end
+    end
+
+    context 'when called with a block' do
+      it 'generates the correct HTML' do
+        result = builder.dsfr_submit { "Block Submit" }
+        expect(result).to match_html(<<~HTML.strip)
+          <button name="button" type="submit" class="fr-btn">Block Submit</button>
+        HTML
+      end
+
+      it 'accepts options when called with a block' do
+        result = builder.dsfr_submit(class: "extra-class", data: { controller: :rails }) { "Block Submit" }
+        expect(result).to match_html(<<~HTML.strip)
+          <button name="button" type="submit" class="fr-btn extra-class" data-controller="rails">Block Submit</button>
         HTML
       end
     end

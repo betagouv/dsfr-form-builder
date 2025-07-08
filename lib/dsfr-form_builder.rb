@@ -11,13 +11,21 @@ module Dsfr
       self.display_required_tags = options.fetch(:display_required_tags, true)
     end
 
-    def dsfr_button(value, options = {})
+    def dsfr_button(value = nil, options = {}, &block)
+      if block_given?
+        options = value || {}
+        value = @template.capture { yield(value) }
+      end
       options[:type] ||= :button
       options[:class] = @template.class_names("fr-btn", options[:class])
       button(value, options)
     end
 
-    def dsfr_submit(value, options = {})
+    def dsfr_submit(value = nil, options = {}, &block)
+      if block_given?
+        options = value || {}
+        value = @template.capture { yield(value) }
+      end
       options[:type] = :submit
       dsfr_button(value, options)
     end
@@ -33,9 +41,9 @@ module Dsfr
         yield(block),
         data: opts[:data],
         class: @template.class_names(
-               "fr-#{kind}-group",
-               opts[:class],
-               "fr-#{kind}-group--error" => @object&.errors&.include?(attribute)
+              "fr-#{kind}-group",
+              opts[:class],
+              "fr-#{kind}-group--error" => @object&.errors&.include?(attribute)
         )
       )
     end
