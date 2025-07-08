@@ -28,14 +28,15 @@ module Dsfr
     end
 
     def dsfr_input_group(attribute, opts, kind: :input, &block)
-      classes = @template.class_names(
-        "fr-#{kind}-group",
-        opts[:class],
-        "fr-#{kind}-group--error" => @object&.errors&.include?(attribute)
+      @template.tag.div(
+        yield(block),
+        data: opts[:data],
+        class: @template.class_names(
+               "fr-#{kind}-group",
+               opts[:class],
+               "fr-#{kind}-group--error" => @object&.errors&.include?(attribute)
+        )
       )
-      @template.tag.div(class: classes, data: opts[:data]) do
-        yield(block)
-      end
     end
 
     def dsfr_input_field(attribute, input_kind, opts = {})
@@ -123,7 +124,16 @@ module Dsfr
       @template.tag.fieldset(class: "fr-fieldset") do
         @template.safe_join([
           @template.tag.legend(legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
-          choices.map { |c| dsfr_radio_option(attribute, value: c[:value], label_text: c[:label], hint: c[:hint], checked: c[:checked], **opts) }
+          choices.map do |choice|
+            dsfr_radio_option(
+              attribute,
+              value: choice[:value],
+              label_text: choice[:label],
+              hint: choice[:hint],
+              checked: choice[:checked],
+              **opts
+            )
+          end
         ])
       end
     end
