@@ -16,7 +16,6 @@ module Dsfr
     def dsfr_button(value, options = {})
       options[:type] ||= :button
       options[:class] = @template.class_names("fr-btn", options[:class])
-
       button(value, options)
     end
 
@@ -46,25 +45,21 @@ module Dsfr
 
     def dsfr_input_field(attribute, input_kind, opts = {})
       dsfr_input_group(attribute, opts) do
-        @template.safe_join(
-          [
-            dsfr_label_with_hint(attribute, opts),
-            public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label, :data)),
-            dsfr_error_message(attribute)
-          ]
-        )
+        @template.safe_join([
+          dsfr_label_with_hint(attribute, opts),
+          public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label, :data)),
+          dsfr_error_message(attribute)
+        ])
       end
     end
 
     def dsfr_file_field(attribute, opts = {})
       dsfr_input_group(attribute, opts, kind: :upload) do
-        @template.safe_join(
-          [
-            dsfr_label_with_hint(attribute, opts.except(:class)),
-            file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
-            dsfr_error_message(attribute)
-          ].compact
-        )
+        @template.safe_join([
+          dsfr_label_with_hint(attribute, opts.except(:class)),
+          file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
+          dsfr_error_message(attribute)
+        ])
       end
     end
 
@@ -116,18 +111,19 @@ module Dsfr
 
     def dsfr_select(attribute, choices, input_options: {}, **opts)
       dsfr_input_group(attribute, opts, kind: :select) do
-        @template.safe_join(
-          [
-            dsfr_label_with_hint(attribute, opts),
-            dsfr_select_tag(attribute, choices, **opts, **(input_options)),
-            dsfr_error_message(attribute)
-          ]
-        )
+        @template.safe_join([
+          dsfr_label_with_hint(attribute, opts),
+          dsfr_select_tag(attribute, choices, opts.merge(input_options).except(:hint, :name)),
+          dsfr_error_message(attribute)
+        ])
       end
     end
 
     def dsfr_select_tag(attribute, choices, opts)
-      select(attribute, choices, { include_blank: opts[:include_blank] }, class: "fr-select")
+      opts[:class] = join_classes("fr-select", opts[:class])
+      options = opts.slice(:include_blank, :selected, :disabled)
+      html_options = opts.except(:include_blank, :selected, :disabled)
+      select(attribute, choices, options, **html_options)
     end
 
     def dsfr_radio_buttons(attribute, choices, legend: nil, hint: nil, **opts)
@@ -137,47 +133,36 @@ module Dsfr
       ])
 
       @template.tag.fieldset(class: "fr-fieldset") do
-        @template.safe_join(
-          [
-            @template.tag.legend(legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
-            choices.map do |choice|
-              dsfr_radio_option(
-                attribute,
-                value: choice[:value],
-                label_text: choice[:label],
-                hint: choice[:hint],
-                checked: choice[:checked],
-                **opts
-              )
-            end
-          ]
-        )
+        @template.safe_join([
+          @template.tag.legend(legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
+          choices.map do |choice|
+            dsfr_radio_option(
+              attribute,
+              value: choice[:value],
+              label_text: choice[:label],
+              hint: choice[:hint],
+              checked: choice[:checked],
+              **opts
+            )
+          end
+        ])
       end
     end
 
     def dsfr_radio_option(attribute, value:, label_text:, hint:, checked:, rich: false, **opts)
       @template.tag.div(class: "fr-fieldset__element") do
         @template.tag.div(class: @template.class_names("fr-radio-group", "fr-radio-rich": rich)) do
-          @template.safe_join(
-            [
-              radio_button(attribute, value, checked:, **opts),
-              label([ attribute, value ].join("_").to_sym) do
-                @template.safe_join(
-                  [
-                    label_text,
-                    hint_tag(hint)
-                  ]
-                )
-              end
-            ]
-          )
+          @template.safe_join([
+            radio_button(attribute, value, checked:, **opts),
+            dsfr_label_with_hint(attribute, opts.merge(label_text: label_text, hint: hint, value: value))
+          ])
         end
       end
     end
 
     def dsfr_label_with_hint(attribute, opts = {})
       label(attribute, class: @template.class_names("fr-label", opts[:class]), value: opts[:value]) do
-        label_and_tags = [ label_value(attribute, opts) ]
+        label_and_tags = [ opts[:label_text] || label_value(attribute, opts) ]
         label_and_tags.push(required_tag) if opts[:required] && display_required_tags
         label_and_tags.push(hint_tag(opts[:hint])) if opts[:hint]
 
