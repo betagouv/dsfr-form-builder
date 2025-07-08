@@ -120,7 +120,7 @@ module Dsfr
     end
 
     def dsfr_select_tag(attribute, choices, opts)
-      opts[:class] = join_classes("fr-select", opts[:class])
+      opts[:class] = @template.class_names("fr-select", opts[:class])
       options = opts.slice(:include_blank, :selected, :disabled)
       html_options = opts.except(:include_blank, :selected, :disabled)
       select(attribute, choices, options, **html_options)
