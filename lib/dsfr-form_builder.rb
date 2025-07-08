@@ -18,7 +18,8 @@ module Dsfr
     end
 
     def dsfr_submit(value, options = {})
-      dsfr_button(value, options.merge(type: :submit))
+      options[:type] = :submit
+      dsfr_button(value, options)
     end
 
     %i[text_field text_area email_field url_field phone_field number_field].each do |field_type|
