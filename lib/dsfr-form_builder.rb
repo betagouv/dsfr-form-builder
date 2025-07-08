@@ -33,7 +33,7 @@ module Dsfr
         opts[:class],
         "fr-#{kind}-group--error" => @object&.errors&.include?(attribute)
       )
-      @template.content_tag(:div, class: classes, data: opts[:data]) do
+      @template.tag.div(class: classes, data: opts[:data]) do
         yield(block)
       end
     end
@@ -59,7 +59,7 @@ module Dsfr
     end
 
     def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
-      @template.content_tag(:div, class: @template.class_names("fr-fieldset__element", "fr-fieldset__element--inline" => opts.delete(:inline))) do
+      @template.tag.div(class: @template.class_names("fr-fieldset__element", "fr-fieldset__element--inline" => opts.delete(:inline))) do
         dsfr_input_group(attribute, opts, kind: :checkbox) do
           @template.safe_join([
             check_box(attribute, opts.except(:label, :hint), checked_value, unchecked_value),
@@ -77,9 +77,9 @@ module Dsfr
       legend = @template.safe_join([ legend, hint_tag(opts.delete(:hint)) ])
       name = opts.delete(:name) || "#{@object_name}[#{method}][]"
       html_options[:class] = @template.class_names("fr-fieldset", html_options[:class])
-      @template.content_tag(:fieldset, **html_options) do
+      @template.tag.fieldset(**html_options) do
         @template.safe_join([
-          @template.content_tag(:legend, legend, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
+          @template.tag.legend(legend, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
           @template.hidden_field_tag(name, "", id: nil),
           collection.map do |item|
             value = item.send(value_method)
@@ -120,17 +120,17 @@ module Dsfr
         legend || @object.class.human_attribute_name(attribute),
         hint_tag(hint)
       ])
-      @template.content_tag(:fieldset, class: "fr-fieldset") do
+      @template.tag.fieldset(class: "fr-fieldset") do
         @template.safe_join([
-          @template.content_tag(:legend, legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
+          @template.tag.legend(legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
           choices.map { |c| dsfr_radio_option(attribute, value: c[:value], label_text: c[:label], hint: c[:hint], checked: c[:checked], **opts) }
         ])
       end
     end
 
     def dsfr_radio_option(attribute, value:, label_text:, hint:, checked:, rich: false, **opts)
-      @template.content_tag(:div, class: "fr-fieldset__element") do
-        @template.content_tag(:div, class: @template.class_names("fr-radio-group", "fr-radio-rich" => rich)) do
+      @template.tag.div(class: "fr-fieldset__element") do
+        @template.tag.div(class: @template.class_names("fr-radio-group", "fr-radio-rich" => rich)) do
           @template.safe_join([
             radio_button(attribute, value, checked:, **opts),
             dsfr_label_with_hint(attribute, opts.merge(label_text: label_text, hint: hint, value: value))
@@ -150,21 +150,21 @@ module Dsfr
     end
 
     def required_tag
-      @template.content_tag(:span, "*", class: "fr-text-error")
+      @template.tag.span("*", class: "fr-text-error")
     end
 
     def dsfr_error_message(attr)
       return if @object.nil? || @object.errors[attr].none?
 
-      @template.content_tag(:p, class: "fr-messages-group") do
+      @template.tag.p(class: "fr-messages-group") do
         safe_join(@object.errors.full_messages_for(attr).map do |msg|
-          @template.content_tag(:span, msg, class: "fr-message fr-message--error")
+          @template.tag.span(msg, class: "fr-message fr-message--error")
         end)
       end
     end
 
     def hint_tag(text)
-      @template.content_tag(:span, text, class: "fr-hint-text") if text
+      @template.tag.span(text, class: "fr-hint-text") if text
     end
 
     def label_value(attribute, opts)
