@@ -40,25 +40,21 @@ module Dsfr
 
     def dsfr_input_field(attribute, input_kind, opts = {})
       dsfr_input_group(attribute, opts) do
-        @template.safe_join(
-          [
-            dsfr_label_with_hint(attribute, opts),
-            public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label, :data)),
-            dsfr_error_message(attribute)
-          ]
-        )
+        @template.safe_join([
+          dsfr_label_with_hint(attribute, opts),
+          public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label, :data)),
+          dsfr_error_message(attribute)
+        ])
       end
     end
 
     def dsfr_file_field(attribute, opts = {})
       dsfr_input_group(attribute, opts, kind: :upload) do
-        @template.safe_join(
-          [
-            dsfr_label_with_hint(attribute, opts.except(:class)),
-            file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
-            dsfr_error_message(attribute)
-          ].compact
-        )
+        @template.safe_join([
+          dsfr_label_with_hint(attribute, opts.except(:class)),
+          file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
+          dsfr_error_message(attribute)
+        ])
       end
     end
 
@@ -104,13 +100,11 @@ module Dsfr
 
     def dsfr_select(attribute, choices, input_options: {}, **opts)
       dsfr_input_group(attribute, opts, kind: :select) do
-        @template.safe_join(
-          [
-            dsfr_label_with_hint(attribute, opts),
-            dsfr_select_tag(attribute, choices, opts.merge(input_options).except(:hint, :name)),
-            dsfr_error_message(attribute)
-          ]
-        )
+        @template.safe_join([
+          dsfr_label_with_hint(attribute, opts),
+          dsfr_select_tag(attribute, choices, opts.merge(input_options).except(:hint, :name)),
+          dsfr_error_message(attribute)
+        ])
       end
     end
 
@@ -127,24 +121,20 @@ module Dsfr
         hint_tag(hint)
       ])
       @template.content_tag(:fieldset, class: "fr-fieldset") do
-        @template.safe_join(
-          [
-            @template.content_tag(:legend, legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
-            choices.map { |c| dsfr_radio_option(attribute, value: c[:value], label_text: c[:label], hint: c[:hint], checked: c[:checked], **opts) }
-          ]
-        )
+        @template.safe_join([
+          @template.content_tag(:legend, legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
+          choices.map { |c| dsfr_radio_option(attribute, value: c[:value], label_text: c[:label], hint: c[:hint], checked: c[:checked], **opts) }
+        ])
       end
     end
 
     def dsfr_radio_option(attribute, value:, label_text:, hint:, checked:, rich: false, **opts)
       @template.content_tag(:div, class: "fr-fieldset__element") do
         @template.content_tag(:div, class: @template.class_names("fr-radio-group", "fr-radio-rich" => rich)) do
-          @template.safe_join(
-            [
-              radio_button(attribute, value, checked:, **opts),
-              dsfr_label_with_hint(attribute, opts.merge(label_text: label_text, hint: hint, value: value))
-            ]
-          )
+          @template.safe_join([
+            radio_button(attribute, value, checked:, **opts),
+            dsfr_label_with_hint(attribute, opts.merge(label_text: label_text, hint: hint, value: value))
+          ])
         end
       end
     end
