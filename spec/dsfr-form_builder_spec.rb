@@ -14,7 +14,7 @@ end
 RSpec.describe Dsfr::FormBuilder do
   let(:helper) { TestHelper.new }
   let(:object) { Record.new(name: 'Jean Paul', pronom: "il") }
-  let(:builder) { Dsfr::FormBuilder.new(:record, object, helper, {}) }
+  let(:builder) { described_class.new(:record, object, helper, {}) }
 
   describe '#dsfr_button' do
     it 'generates the correct HTML' do

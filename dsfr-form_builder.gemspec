@@ -1,5 +1,7 @@
 $LOAD_PATH.push File.expand_path('lib', __dir__)
 
+require_relative 'lib/dsfr-form_builder/version'
+
 METADATA = {
   'bug_tracker_uri' => 'https://github.com/betagouv/dsfr-form-builder/issues',
   'changelog_uri' => 'https://github.com/betagouv/dsfr-form-builder/releases',
@@ -11,7 +13,7 @@ METADATA = {
 
 Gem::Specification.new do |spec|
   spec.name        = 'dsfr-form_builder'
-  spec.version     = '0.0.8'
+  spec.version     = Dsfr::FormBuilder::VERSION
   spec.authors     = [ 'BetaGouv developers' ]
   spec.email       = [ 'antoine.girard@beta.gouv.fr' ]
   spec.homepage    = 'https://github.com/betagouv/dsfr-form-builder'
