@@ -152,11 +152,11 @@ module Dsfr
 
     def dsfr_label_with_hint(attribute, opts = {})
       label(attribute, class: @template.class_names("fr-label", opts[:class]), value: opts[:value]) do
-        label_and_tags = [ opts[:label_text] || label_value(attribute, opts) ]
-        label_and_tags.push(required_tag) if opts[:required] && display_required_tags
-        label_and_tags.push(hint_tag(opts[:hint])) if opts[:hint]
-
-        @template.safe_join(label_and_tags)
+        @template.safe_join([
+          opts[:label_text] || label_value(attribute, opts),
+          (required_tag if opts[:required] && display_required_tags),
+          (hint_tag(opts[:hint]) if opts[:hint])
+        ])
       end
     end
 
