@@ -13,7 +13,7 @@ module Dsfr
 
     def dsfr_button(value, options = {})
       options[:type] ||= :button
-      options[:class] = join_classes("fr-btn", options[:class])
+      options[:class] = @template.class_names("fr-btn", options[:class])
       button(value, options)
     end
 
@@ -28,10 +28,10 @@ module Dsfr
     end
 
     def dsfr_input_group(attribute, opts, kind: :input, &block)
-      classes = join_classes(
+      classes = @template.class_names(
         "fr-#{kind}-group",
-        ("fr-#{kind}-group--error" if @object&.errors&.include?(attribute)),
-        opts[:class]
+        opts[:class],
+        "fr-#{kind}-group--error" => @object&.errors&.include?(attribute)
       )
       @template.content_tag(:div, class: classes, data: opts[:data]) do
         yield(block)
@@ -63,7 +63,7 @@ module Dsfr
     end
 
     def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
-      @template.content_tag(:div, class: "fr-fieldset__element #{'fr-fieldset__element--inline' if opts.delete(:inline)}") do
+      @template.content_tag(:div, class: @template.class_names("fr-fieldset__element", "fr-fieldset__element--inline" => opts.delete(:inline))) do
         dsfr_input_group(attribute, opts, kind: :checkbox) do
           @template.safe_join([
             check_box(attribute, opts.except(:label, :hint), checked_value, unchecked_value),
@@ -80,7 +80,7 @@ module Dsfr
       end
       legend = @template.safe_join([ legend, hint_tag(opts.delete(:hint)) ])
       name = opts.delete(:name) || "#{@object_name}[#{method}][]"
-      html_options[:class] = [ "fr-fieldset", html_options[:class] ].compact.join(" ")
+      html_options[:class] = @template.class_names("fr-fieldset", html_options[:class])
       @template.content_tag(:fieldset, **html_options) do
         @template.safe_join([
           @template.content_tag(:legend, legend, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
@@ -115,7 +115,7 @@ module Dsfr
     end
 
     def dsfr_select_tag(attribute, choices, opts)
-      opts[:class] = join_classes("fr-select", opts[:class])
+      opts[:class] = @template.class_names("fr-select", opts[:class])
       options = opts.slice(:include_blank, :selected, :disabled)
       html_options = opts.except(:include_blank, :selected, :disabled)
       select(attribute, choices, options, **html_options)
@@ -138,8 +138,7 @@ module Dsfr
 
     def dsfr_radio_option(attribute, value:, label_text:, hint:, checked:, rich: false, **opts)
       @template.content_tag(:div, class: "fr-fieldset__element") do
-        classes = rich ? "fr-radio-group fr-radio-rich" : "fr-radio-group"
-        @template.content_tag(:div, class: classes) do
+        @template.content_tag(:div, class: @template.class_names("fr-radio-group", "fr-radio-rich" => rich)) do
           @template.safe_join(
             [
               radio_button(attribute, value, checked:, **opts),
@@ -151,8 +150,7 @@ module Dsfr
     end
 
     def dsfr_label_with_hint(attribute, opts = {})
-      label_class = "fr-label #{opts[:class]}"
-      label(attribute, class: label_class, value: opts[:value]) do
+      label(attribute, class: @template.class_names("fr-label", opts[:class]), value: opts[:value]) do
         label_and_tags = [ opts[:label_text] || label_value(attribute, opts) ]
         label_and_tags.push(required_tag) if opts[:required] && display_required_tags
         label_and_tags.push(hint_tag(opts[:hint])) if opts[:hint]
@@ -177,10 +175,6 @@ module Dsfr
 
     def hint_tag(text)
       @template.content_tag(:span, text, class: "fr-hint-text") if text
-    end
-
-    def join_classes(*arr)
-      Array.wrap(arr).compact.join(" ")
     end
 
     def label_value(attribute, opts)
