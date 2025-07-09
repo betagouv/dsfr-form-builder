@@ -1,24 +1,23 @@
 $LOAD_PATH.push File.expand_path('lib', __dir__)
 
-METADATA = {
-  'bug_tracker_uri' => 'https://github.com/betagouv/dsfr-form-builder/issues',
-  'changelog_uri' => 'https://github.com/betagouv/dsfr-form-builder/releases',
-  'documentation_uri' => 'https://www.rubydoc.info/gems/dsfr-form-builder/',
-  'homepage_uri' => 'https://github.com/betagouv/dsfr-form-builder',
-  'source_code_uri' => 'https://github.com/betagouv/dsfr-form-builder'
-}.freeze
-
+require_relative 'lib/dsfr-form_builder/version'
 
 Gem::Specification.new do |spec|
   spec.name        = 'dsfr-form_builder'
-  spec.version     = '0.0.8'
+  spec.version     = Dsfr::FormBuilder::VERSION
   spec.authors     = [ 'BetaGouv developers' ]
   spec.email       = [ 'antoine.girard@beta.gouv.fr' ]
   spec.homepage    = 'https://github.com/betagouv/dsfr-form-builder'
   spec.summary     = "Ruby on Rails form builder pour le Système de Design de l'État (DSFR)"
   spec.description = "Cette librairie de composants vise à simplifier la création de formulaire au DSFR (Système de Design de l'État) dans les applications web utilisant Ruby On Rails"
   spec.license     = 'MIT'
-  spec.metadata    = METADATA
+  spec.metadata = {
+    'homepage_uri'      => spec.homepage,
+    'source_code_uri'   => spec.homepage,
+    'bug_tracker_uri'   => spec.homepage + '/issues',
+    'changelog_uri'     => spec.homepage + '/releases',
+    'documentation_uri' => 'https://www.rubydoc.info/gems/dsfr-form-builder/'
+  }
 
   spec.files = Dir['lib/**/*']
 

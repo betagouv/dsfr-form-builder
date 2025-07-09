@@ -8,8 +8,6 @@ gem "rubocop"
 gem "rubocop-rails-omakase", require: false, group: [ :development ]
 gem "rspec"
 gem "simplecov"
-gem "actionview"
-gem "activemodel"
 gem "nokogiri"
 gem "uri" # necessary on github actions
 gem "diffy"

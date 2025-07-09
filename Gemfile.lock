@@ -149,8 +149,6 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  actionview
-  activemodel
   diffy
   dsfr-form_builder!
   nokogiri
