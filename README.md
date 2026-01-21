@@ -26,6 +26,22 @@ Vous pouvez également spécifier le builder par défaut dans votre fichier `app
 config.action_view.default_form_builder = Dsfr::FormBuilder
 ```
 
+## Déploiement d'une nouvelle version (release process)
+
+Pour déployer une nouvelle version de la gem :
+
+```sh
+VERSION=0.0.10 make deploy_gem
+```
+
+Cela va :
+- modifier le numéro de version dans le code
+- créer un commit et un tag git
+- push sur GitHub
+- créer une release sur GitHub
+- suggérer de créer une release sur Rubygems
+
+
 ## Licence
 
 Le code source et la gem sont distribués sous licence [MIT](https://github.com/betagouv/dsfr-form-builder/blob/main/LICENSE).
