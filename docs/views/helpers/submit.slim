@@ -1,0 +1,72 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_submit
+
+h1 dsfr_submit
+
+p.fr-text--lead
+  | Génère un
+  code<  &lt;button type="submit"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/bouton" target="_blank" rel="noopener"
+    | Documentation DSFR - Bouton
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#texte" Avec texte personnalisé
+    li
+      a.fr-summary__link href="#icone" Avec icône
+    li
+      a.fr-summary__link href="#desactive" Désactivé
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_submit "Envoyer"
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  p
+    | Toutes les options de
+    a href="/button"  dsfr_button
+    |  sont disponibles. La seule différence est que le type est automatiquement défini sur "submit".
+
+section.fr-my-4w id="texte"
+  h2 Avec texte personnalisé
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_submit "Valider et continuer"
+    RUBY
+  == example(rb_code, "texte")
+
+section.fr-my-4w id="icone"
+  h2 Avec icône
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_submit "Enregistrer", class: "fr-btn--icon-left fr-icon-save-line"
+    RUBY
+  == example(rb_code, "icone")
+
+section.fr-my-4w id="desactive"
+  h2 Désactivé
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_submit "Envoyer", disabled: true
+    RUBY
+  == example(rb_code, "desactive")

@@ -1,0 +1,117 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_file_field
+
+h1 dsfr_file_field
+
+p.fr-text--lead
+  | Génère un champ d'upload de fichier
+  code<  &lt;input type="file"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/ajout-de-fichier" target="_blank" rel="noopener"
+    | Documentation DSFR - Ajout de fichier
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#hint" Avec texte d'aide
+    li
+      a.fr-summary__link href="#obligatoire" Champ obligatoire
+    li
+      a.fr-summary__link href="#accept" Avec restriction de type
+    li
+      a.fr-summary__link href="#multiple" Upload multiple
+    li
+      a.fr-summary__link href="#erreur" Champ en erreur
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_file_field :document
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code label:
+          td String
+          td Texte personnalisé pour le label
+        tr
+          td: code hint:
+          td String
+          td Texte d'aide affiché sous le label
+        tr
+          td: code required:
+          td Boolean
+          td Affiche une astérisque rouge
+        tr
+          td: code accept:
+          td String
+          td Types de fichiers acceptés
+        tr
+          td: code multiple:
+          td Boolean
+          td Permet l'upload de plusieurs fichiers
+
+section.fr-my-4w id="hint"
+  h2 Avec texte d'aide
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_file_field :document, hint: "Formats acceptés : PDF, PNG, JPG. Taille max : 5 Mo"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="obligatoire"
+  h2 Champ obligatoire
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_file_field :document, required: true
+    RUBY
+  == example(rb_code, "obligatoire")
+
+section.fr-my-4w id="accept"
+  h2 Avec restriction de type de fichier
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_file_field :document, accept: ".pdf,.png,.jpg"
+    RUBY
+  == example(rb_code, "accept")
+
+section.fr-my-4w id="multiple"
+  h2 Upload multiple
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_file_field :document, multiple: true
+    RUBY
+  == example(rb_code, "multiple")
+
+section.fr-my-4w id="erreur"
+  h2 Champ en erreur
+  p Affiche le champ avec un message d'erreur lorsque le modèle contient des erreurs de validation.
+  ruby:
+    error_model = DemoModel.new
+    error_model.errors.add(:document, "Ce champ est obligatoire")
+    error_model.errors.add(:document, "Le fichier doit être au format PDF, PNG ou JPG")
+  == example("f.dsfr_file_field :document", "erreur", model: error_model)

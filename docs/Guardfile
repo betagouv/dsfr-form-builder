@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+guard "rack", port: 9292, wait_for: 5 do
+  watch("Gemfile.lock")
+  watch(%r{^app\.rb$})
+  watch(%r{^../lib/.+\.rb$})
+end
+
+guard "livereload", grace_period: 1 do
+  watch(%r{views/.+\.(erb|slim)$})
+end

@@ -1,0 +1,103 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_number_field
+
+h1 dsfr_number_field
+
+p.fr-text--lead
+  | Génère un champ de saisie numérique
+  code<  &lt;input type="number"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/champ-de-saisie" target="_blank" rel="noopener"
+    | Documentation DSFR - Champ de saisie
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#hint" Avec texte d'aide
+    li
+      a.fr-summary__link href="#min-max" Avec min et max
+    li
+      a.fr-summary__link href="#step" Avec step
+    li
+      a.fr-summary__link href="#erreur" Champ en erreur
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_number_field :age
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code min:
+          td Integer
+          td Valeur minimale
+        tr
+          td: code max:
+          td Integer
+          td Valeur maximale
+        tr
+          td: code step:
+          td Integer
+          td Incrément
+  p.fr-mt-2w
+    | Les mêmes options que
+    a href="/text-field"  dsfr_text_field
+    |  sont également disponibles.
+
+section.fr-my-4w id="hint"
+  h2 Avec texte d'aide
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_number_field :age, hint: "Votre âge en années"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="min-max"
+  h2 Avec min et max
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_number_field :age, min: 0, max: 120
+    RUBY
+  == example(rb_code, "min-max")
+
+section.fr-my-4w id="step"
+  h2 Avec step
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_number_field :age, step: 5
+    RUBY
+  == example(rb_code, "step")
+
+section.fr-my-4w id="erreur"
+  h2 Champ en erreur
+  p Affiche le champ avec un message d'erreur lorsque le modèle contient des erreurs de validation.
+  ruby:
+    error_model = DemoModel.new
+    error_model.errors.add(:age, "Ce champ est obligatoire")
+    error_model.errors.add(:age, "L'âge doit être compris entre 0 et 120")
+  == example("f.dsfr_number_field :age", "erreur", model: error_model)

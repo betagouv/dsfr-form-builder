@@ -1,0 +1,129 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_collection_check_boxes
+
+h1 dsfr_collection_check_boxes
+
+p.fr-text--lead
+  | Génère un groupe de
+  code<  &lt;input type="checkbox"&gt;
+  |  au DSFR à partir d'une collection.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/case-a-cocher" target="_blank" rel="noopener"
+    | Documentation DSFR - Case à cocher
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#parametres" Paramètres
+    li
+      a.fr-summary__link href="#signature" Signature
+    li
+      a.fr-summary__link href="#hint" Avec texte d'aide
+    li
+      a.fr-summary__link href="#inline" Affichage inline
+    li
+      a.fr-summary__link href="#name" Avec nom personnalisé
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_collection_check_boxes :interests, interest_collection, :id, :name, legend: "Centres d'intérêt"
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code legend:
+          td String
+          td Titre du groupe (obligatoire)
+        tr
+          td: code hint:
+          td String
+          td Texte d'aide affiché sous la légende
+        tr
+          td: code inline:
+          td Boolean
+          td Affichage en ligne des cases
+        tr
+          td: code name:
+          td String
+          td Nom personnalisé pour les champs
+
+section.fr-my-4w id="parametres"
+  h2 Paramètres
+  .fr-table
+    table
+      thead
+        tr
+          th Paramètre
+          th Description
+      tbody
+        tr
+          td: code method
+          td Nom de l'attribut du modèle
+        tr
+          td: code collection
+          td Collection d'objets à afficher
+        tr
+          td: code value_method
+          td
+            | Méthode pour obtenir la valeur (ex:
+            code :id
+            | )
+        tr
+          td: code text_method
+          td
+            | Méthode pour obtenir le texte (ex:
+            code :name
+            | )
+
+section.fr-my-4w id="signature"
+  h2 Signature
+  == code_block("dsfr_collection_check_boxes(method, collection, value_method, text_method, opts = {}, html_options = {})")
+
+section.fr-my-4w id="hint"
+  h2 Avec texte d'aide
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_collection_check_boxes :interests, interest_collection, :id, :name, legend: "Centres d'intérêt", hint: "Sélectionnez un ou plusieurs choix"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="inline"
+  h2 Affichage inline
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_collection_check_boxes :interests, interest_collection, :id, :name, legend: "Centres d'intérêt", inline: true
+    RUBY
+  == example(rb_code, "inline")
+
+section.fr-my-4w id="name"
+  h2 Avec nom personnalisé
+  p Utile pour des formulaires complexes ou des nested attributes.
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_collection_check_boxes :interests, interest_collection, :id, :name, legend: "Centres d'intérêt", name: "user[interest_ids][]"
+    RUBY
+  == example(rb_code, "name")

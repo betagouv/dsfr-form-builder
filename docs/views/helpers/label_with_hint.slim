@@ -1,0 +1,126 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_label_with_hint
+
+h1 dsfr_label_with_hint
+
+p.fr-text--lead
+  | Génère un
+  code<  &lt;label&gt;
+  |  au DSFR avec texte d'aide optionnel.
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#label-personnalise" Avec label personnalisé
+    li
+      a.fr-summary__link href="#hint" Avec texte d'aide
+    li
+      a.fr-summary__link href="#obligatoire" Avec indicateur obligatoire
+    li
+      a.fr-summary__link href="#combinaison" Combinaison complète
+    li
+      a.fr-summary__link href="#value" Pour radio/checkbox
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_label_with_hint :name
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code label:
+          td String
+          td Texte personnalisé pour le label
+        tr
+          td: code label_text:
+          td String
+          td
+            | Alias de
+            code label:
+            |  (prioritaire)
+        tr
+          td: code hint:
+          td String
+          td Texte d'aide affiché sous le label
+        tr
+          td: code required:
+          td Boolean
+          td Affiche une astérisque rouge
+        tr
+          td: code value:
+          td String
+          td
+            | Valeur pour l'attribut
+            code for
+            |  (radio/checkbox)
+        tr
+          td: code class:
+          td String
+          td Classes CSS additionnelles
+
+section.fr-my-4w id="label-personnalise"
+  h2 Avec label personnalisé
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_label_with_hint :name, label: "Votre nom complet"
+    RUBY
+  == example(rb_code, "label-personnalise")
+
+section.fr-my-4w id="hint"
+  h2 Avec texte d'aide
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_label_with_hint :name, hint: "Tel qu'il apparaît sur votre pièce d'identité"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="obligatoire"
+  h2 Avec indicateur obligatoire
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_label_with_hint :name, required: true
+    RUBY
+  == example(rb_code, "obligatoire")
+
+section.fr-my-4w id="combinaison"
+  h2 Combinaison complète
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_label_with_hint :name, label: "Nom complet", hint: "Prénom et nom de famille", required: true
+    RUBY
+  == example(rb_code, "combinaison")
+
+section.fr-my-4w id="value"
+  h2 Pour radio/checkbox (avec value)
+  p
+    | L'option
+    code value:
+    |  permet de générer un label associé à une valeur spécifique (utile pour les radio buttons et checkboxes).
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_label_with_hint :pronoun, label_text: "Elle", hint: "Elle était présente", value: "elle"
+    RUBY
+  == example(rb_code, "value")

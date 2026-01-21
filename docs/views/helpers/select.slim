@@ -1,0 +1,169 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_select
+
+h1 dsfr_select
+
+p.fr-text--lead
+  | Génère une liste déroulante
+  code<  &lt;select&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/liste-deroulante" target="_blank" rel="noopener"
+    | Documentation DSFR - Liste déroulante
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#input-options" Options de input_options
+    li
+      a.fr-summary__link href="#hint" Avec texte d'aide
+    li
+      a.fr-summary__link href="#obligatoire" Champ obligatoire
+    li
+      a.fr-summary__link href="#include-blank" Avec option vide
+    li
+      a.fr-summary__link href="#selected" Avec valeur pré-sélectionnée
+    li
+      a.fr-summary__link href="#disabled-options" Avec options désactivées
+    li
+      a.fr-summary__link href="#disabled" Champ désactivé
+    li
+      a.fr-summary__link href="#erreur" Champ en erreur
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code label:
+          td String
+          td Texte personnalisé pour le label
+        tr
+          td: code hint:
+          td String
+          td Texte d'aide affiché sous le label
+        tr
+          td: code required:
+          td Boolean
+          td Affiche une astérisque rouge
+        tr
+          td: code input_options:
+          td Hash
+          td Options pour le select (voir ci-dessous)
+
+section.fr-my-4w id="input-options"
+  h2 Options de input_options
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code include_blank:
+          td String/Boolean
+          td Ajoute une option vide au début
+        tr
+          td: code selected:
+          td String
+          td Valeur pré-sélectionnée
+        tr
+          td: code disabled:
+          td String/Array/Boolean
+          td Désactive une ou plusieurs options, ou le champ entier
+
+section.fr-my-4w id="hint"
+  h2 Avec texte d'aide
+  ruby:
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices, hint: "Sélectionnez votre rôle dans l'organisation"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="obligatoire"
+  h2 Champ obligatoire
+  ruby:
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices, required: true
+    RUBY
+  == example(rb_code, "obligatoire")
+
+section.fr-my-4w id="include-blank"
+  h2 Avec option vide (include_blank)
+  ruby:
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices, input_options: { include_blank: "Choisir..." }
+    RUBY
+  == example(rb_code, "include-blank")
+
+section.fr-my-4w id="selected"
+  h2 Avec valeur pré-sélectionnée
+  ruby:
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices, input_options: { selected: "editor" }
+    RUBY
+  == example(rb_code, "selected")
+
+section.fr-my-4w id="disabled-options"
+  h2 Avec options désactivées
+  ruby:
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices, input_options: { disabled: "admin" }
+    RUBY
+  == example(rb_code, "disabled-options")
+
+section.fr-my-4w id="disabled"
+  h2 Champ désactivé
+  ruby:
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices, input_options: { disabled: true }
+    RUBY
+  == example(rb_code, "disabled")
+
+section.fr-my-4w id="erreur"
+  h2 Champ en erreur
+  p Affiche le champ avec un message d'erreur lorsque le modèle contient des erreurs de validation.
+  ruby:
+    error_model = DemoModel.new
+    error_model.errors.add(:role, "Ce champ est obligatoire")
+    error_model.errors.add(:role, "Le rôle sélectionné n'est pas disponible")
+    rb_code = <<~RUBY
+      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
+      f.dsfr_select :role, choices
+    RUBY
+  == example(rb_code, "erreur", model: error_model)

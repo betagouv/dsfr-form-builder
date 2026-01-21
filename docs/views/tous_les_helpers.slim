@@ -1,0 +1,114 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link aria-current="page" Tous les helpers
+
+h1 Tous les helpers
+
+p.fr-text--lead
+  | Tous les helpers disponibles dans le gem dsfr-form_builder, organisés par catégorie.
+
+section.fr-my-4w
+  h2 Champs texte
+  .fr-table
+    table
+      thead
+        tr
+          th Helper
+          th Description
+      tbody
+        tr
+          td
+            a href="/text-field" dsfr_text_field
+          td
+            code< &lt;input type="text"&gt;
+        tr
+          td
+            a href="/text-area" dsfr_text_area
+          td
+            code< &lt;textarea&gt;
+        tr
+          td
+            a href="/email-field" dsfr_email_field
+          td
+            code< &lt;input type="email"&gt;
+        tr
+          td
+            a href="/url-field" dsfr_url_field
+          td
+            code< &lt;input type="url"&gt;
+        tr
+          td
+            a href="/phone-field" dsfr_phone_field
+          td
+            code< &lt;input type="tel"&gt;
+        tr
+          td
+            a href="/number-field" dsfr_number_field
+          td
+            code< &lt;input type="number"&gt;
+        tr
+          td
+            a href="/file-field" dsfr_file_field
+          td
+            code< &lt;input type="file"&gt;
+
+section.fr-my-4w
+  h2 Champs de sélection
+  .fr-table
+    table
+      thead
+        tr
+          th Helper
+          th Description
+      tbody
+        tr
+          td
+            a href="/check-box" dsfr_check_box
+          td
+            code< &lt;input type="checkbox"&gt;
+        tr
+          td
+            a href="/collection-check-boxes" dsfr_collection_check_boxes
+          td
+            | Groupe de
+            code<  &lt;input type="checkbox"&gt;
+        tr
+          td
+            a href="/radio-buttons" dsfr_radio_buttons
+          td
+            | Groupe de
+            code<  &lt;input type="radio"&gt;
+        tr
+          td
+            a href="/select" dsfr_select
+          td
+            code< &lt;select&gt;
+
+section.fr-my-4w
+  h2 Autres
+  .fr-table
+    table
+      thead
+        tr
+          th Helper
+          th Description
+      tbody
+        tr
+          td
+            a href="/button" dsfr_button
+          td
+            code< &lt;button type="button"&gt;
+        tr
+          td
+            a href="/submit" dsfr_submit
+          td
+            code< &lt;button type="submit"&gt;
+        tr
+          td
+            a href="/label-with-hint" dsfr_label_with_hint
+          td
+            code< &lt;label&gt;
+            |  avec texte d'aide

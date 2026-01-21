@@ -1,0 +1,148 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_text_field
+
+h1 dsfr_text_field
+
+p.fr-text--lead
+  | Génère un champ de saisie
+  code<  &lt;input type="text"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/champ-de-saisie" target="_blank" rel="noopener"
+    | Documentation DSFR - Champ de saisie
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#label-personnalise" Avec un label personnalisé
+    li
+      a.fr-summary__link href="#hint" Avec un texte d'aide (hint)
+    li
+      a.fr-summary__link href="#obligatoire" Champ obligatoire
+    li
+      a.fr-summary__link href="#placeholder" Avec un placeholder
+    li
+      a.fr-summary__link href="#desactive" Champ désactivé
+    li
+      a.fr-summary__link href="#data" Avec attributs data
+    li
+      a.fr-summary__link href="#erreur" Champ en erreur
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_text_field :name
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code label:
+          td String
+          td Texte personnalisé pour le label
+        tr
+          td: code hint:
+          td String
+          td Texte d'aide affiché sous le label
+        tr
+          td: code required:
+          td Boolean
+          td
+            |> Affiche une astérisque si
+            code true
+        tr
+          td: code placeholder:
+          td String
+          td Texte indicatif dans le champ
+        tr
+          td: code disabled:
+          td Boolean
+          td Désactive le champ
+        tr
+          td: code data:
+          td Hash
+          td Attributs data-* pour le champ
+        tr
+          td: code class:
+          td String
+          td Classes CSS additionnelles pour le groupe
+
+section.fr-my-4w id="label-personnalise"
+  h2 Avec un label personnalisé
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_text_field :name, label: "Votre nom complet"
+    RUBY
+  == example(rb_code, "label-personnalise")
+
+section.fr-my-4w id="hint"
+  h2 Avec un texte d'aide (hint)
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_text_field :name, hint: "Entrez votre prénom et nom de famille"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="obligatoire"
+  h2 Champ obligatoire
+  p Affiche une astérisque à côté du label.
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_text_field :name, required: true
+    RUBY
+  == example(rb_code, "obligatoire")
+
+section.fr-my-4w id="placeholder"
+  h2 Avec un placeholder
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_text_field :name, placeholder: "Jean Dupont"
+    RUBY
+  == example(rb_code, "placeholder")
+
+section.fr-my-4w id="desactive"
+  h2 Champ désactivé
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_text_field :name, disabled: true
+    RUBY
+  == example(rb_code, "desactive")
+
+section.fr-my-4w id="data"
+  h2 Avec attributs data
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_text_field :name, data: { controller: "autocomplete", action: "input->autocomplete#search" }
+    RUBY
+  == example(rb_code, "data")
+
+section.fr-my-4w id="erreur"
+  h2 Champ en erreur
+  p Affiche le champ avec un message d'erreur lorsque le modèle contient des erreurs de validation.
+  ruby:
+    error_model = DemoModel.new
+    error_model.errors.add(:name, "Ce champ est obligatoire")
+    error_model.errors.add(:name, "Le nom doit contenir au moins 2 caractères")
+  == example("f.dsfr_text_field :name", "erreur", model: error_model)

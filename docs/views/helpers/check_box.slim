@@ -1,0 +1,123 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_check_box
+
+h1 dsfr_check_box
+
+p.fr-text--lead
+  | Génère une case à cocher
+  code<  &lt;input type="checkbox"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/case-a-cocher" target="_blank" rel="noopener"
+    | Documentation DSFR - Case à cocher
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#label-personnalise" Avec un label personnalisé
+    li
+      a.fr-summary__link href="#hint" Avec texte d'aide
+    li
+      a.fr-summary__link href="#inline" Affichage inline
+    li
+      a.fr-summary__link href="#valeurs" Valeurs personnalisées
+    li
+      a.fr-summary__link href="#checked" Case pré-cochée
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_check_box :terms
+    RUBY
+  == example(rb_code, "basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code label:
+          td String
+          td Texte personnalisé pour le label
+        tr
+          td: code hint:
+          td String
+          td Texte d'aide affiché sous le label
+        tr
+          td: code inline:
+          td Boolean
+          td Affichage en ligne
+        tr
+          td: code checked:
+          td Boolean
+          td Pré-coche la case
+        tr
+          td 2ème argument
+          td String
+          td Valeur quand coché (défaut: "1")
+        tr
+          td 3ème argument
+          td String
+          td Valeur quand non coché (défaut: "0")
+
+section.fr-my-4w id="label-personnalise"
+  h2 Avec un label personnalisé
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_check_box :terms, label: "J'accepte les conditions générales d'utilisation"
+    RUBY
+  == example(rb_code, "label-personnalise")
+
+section.fr-my-4w id="hint"
+  h2 Avec texte d'aide
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_check_box :terms, hint: "Vous devez accepter pour continuer"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="inline"
+  h2 Affichage inline
+  p Utile pour afficher plusieurs cases à cocher sur une même ligne.
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_check_box :terms, inline: true
+      f.dsfr_check_box :notifications, inline: true
+    RUBY
+  == example(rb_code, "inline")
+
+section.fr-my-4w id="valeurs"
+  h2 Valeurs personnalisées
+  p Par défaut, les valeurs sont "1" (coché) et "0" (non coché). Vous pouvez les personnaliser.
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_check_box :terms, {}, "yes", "no"
+    RUBY
+  == example(rb_code, "valeurs")
+
+section.fr-my-4w id="checked"
+  h2 Case pré-cochée
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_check_box :notifications, checked: true
+    RUBY
+  == example(rb_code, "checked")

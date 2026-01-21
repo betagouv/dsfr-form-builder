@@ -1,0 +1,139 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_radio_buttons
+
+h1 dsfr_radio_buttons
+
+p.fr-text--lead
+  | Génère un groupe de
+  code<  &lt;input type="radio"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/bouton-radio" target="_blank" rel="noopener"
+    | Documentation DSFR - Bouton radio
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#format-choix" Format des choix
+    li
+      a.fr-summary__link href="#hint-legend" Avec texte d'aide sur la légende
+    li
+      a.fr-summary__link href="#hint-options" Avec texte d'aide sur chaque option
+    li
+      a.fr-summary__link href="#checked" Avec option pré-sélectionnée
+    li
+      a.fr-summary__link href="#rich" Style riche
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      choices = [{ value: "elle", label: "Elle" }, { value: "il", label: "Il" }, { value: "iel", label: "Iel" }]
+      f.dsfr_radio_buttons :pronoun, choices, legend: "Pronom"
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code legend:
+          td String
+          td Titre du groupe
+        tr
+          td: code hint:
+          td String
+          td Texte d'aide sous la légende
+        tr
+          td: code rich:
+          td Boolean
+          td Active le style riche avec bordures
+
+section.fr-my-4w id="format-choix"
+  h2 Format des choix
+  p Chaque choix est un Hash avec les clés suivantes :
+  .fr-table
+    table
+      thead
+        tr
+          th Clé
+          th Type
+          th Obligatoire
+          th Description
+      tbody
+        tr
+          td: code value:
+          td String
+          td Oui
+          td Valeur envoyée au serveur
+        tr
+          td: code label:
+          td String
+          td Oui
+          td Texte affiché
+        tr
+          td: code hint:
+          td String
+          td Non
+          td Texte d'aide sous le label
+        tr
+          td: code checked:
+          td Boolean
+          td Non
+          td Pré-sélectionne l'option
+
+section.fr-my-4w id="hint-legend"
+  h2 Avec texte d'aide sur la légende
+  ruby:
+    rb_code = <<~RUBY
+      choices = [{ value: "elle", label: "Elle" }, { value: "il", label: "Il" }, { value: "iel", label: "Iel" }]
+      f.dsfr_radio_buttons :pronoun, choices, legend: "Pronom", hint: "Choisissez votre pronom préféré"
+    RUBY
+  == example(rb_code, "hint-legend")
+
+section.fr-my-4w id="hint-options"
+  h2 Avec texte d'aide sur chaque option
+  ruby:
+    rb_code = <<~RUBY
+      choices = [{ value: "elle", label: "Elle", hint: "Elle était présente" }, { value: "il", label: "Il", hint: "Il était présent" }, { value: "iel", label: "Iel", hint: "Iel était présent" }]
+      f.dsfr_radio_buttons :pronoun, choices, legend: "Pronom"
+    RUBY
+  == example(rb_code, "hint-options")
+
+section.fr-my-4w id="checked"
+  h2 Avec option pré-sélectionnée
+  ruby:
+    rb_code = <<~RUBY
+      choices = [{ value: "elle", label: "Elle" }, { value: "il", label: "Il", checked: true }, { value: "iel", label: "Iel" }]
+      f.dsfr_radio_buttons :pronoun, choices, legend: "Pronom"
+    RUBY
+  == example(rb_code, "checked")
+
+section.fr-my-4w id="rich"
+  h2 Style riche (rich)
+  p Le style riche ajoute une bordure autour de chaque option.
+  ruby:
+    rb_code = <<~RUBY
+      choices = [{ value: "elle", label: "Elle", hint: "Elle était présente" }, { value: "il", label: "Il", hint: "Il était présent" }, { value: "iel", label: "Iel", hint: "Iel était présent" }]
+      f.dsfr_radio_buttons :pronoun, choices, legend: "Pronom", rich: true
+    RUBY
+  == example(rb_code, "rich")

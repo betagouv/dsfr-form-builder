@@ -1,0 +1,63 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href="/" Accueil
+    li
+      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_phone_field
+
+h1 dsfr_phone_field
+
+p.fr-text--lead
+  | Génère un champ de saisie de téléphone
+  code<  &lt;input type="tel"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/champ-de-saisie" target="_blank" rel="noopener"
+    | Documentation DSFR - Champ de saisie
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#hint" Avec texte d'aide
+    li
+      a.fr-summary__link href="#erreur" Champ en erreur
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_phone_field :phone
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  p
+    | Les mêmes options que
+    a href="/text-field"  dsfr_text_field
+    |  sont disponibles.
+
+section.fr-my-4w id="hint"
+  h2 Avec texte d'aide
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_phone_field :phone, hint: "06 12 34 56 78"
+    RUBY
+  == example(rb_code, "hint")
+
+section.fr-my-4w id="erreur"
+  h2 Champ en erreur
+  p Affiche le champ avec un message d'erreur lorsque le modèle contient des erreurs de validation.
+  ruby:
+    error_model = DemoModel.new
+    error_model.errors.add(:phone, "Ce champ est obligatoire")
+    error_model.errors.add(:phone, "Le numéro de téléphone n'est pas valide")
+  == example("f.dsfr_phone_field :phone", "erreur", model: error_model)
