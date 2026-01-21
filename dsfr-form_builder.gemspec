@@ -11,7 +11,7 @@ METADATA = {
 
 Gem::Specification.new do |spec|
   spec.name        = 'dsfr-form_builder'
-  spec.version     = '0.0.8'
+  spec.version     = '0.0.9'
   spec.authors     = [ 'BetaGouv developers' ]
   spec.email       = [ 'antoine.girard@beta.gouv.fr' ]
   spec.homepage    = 'https://github.com/betagouv/dsfr-form-builder'
