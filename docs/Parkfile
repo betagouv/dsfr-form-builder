@@ -7,5 +7,10 @@ Parklife.application.config.build_dir = "build"
 Parklife.application.config.base = "/"
 
 Parklife.application.routes do
-  root crawl: true
+  root
+  get "/tous-les-helpers"
+
+  DocsApp::HELPERS.each do |helper|
+    get "/#{helper.tr('_', '-')}"
+  end
 end

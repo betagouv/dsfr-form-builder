@@ -128,6 +128,7 @@ class DocsApp < Sinatra::Base
     end
   end
 
+  # NOTE: if you add routes, don't forget to add them in the Parklife file
   get "/" do
     @demo_model = DemoModel.new
     @demo_model.errors.add(:name, "Ce champ est obligatoire")
