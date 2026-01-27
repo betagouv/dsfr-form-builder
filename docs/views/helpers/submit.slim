@@ -1,9 +1,9 @@
 nav.fr-breadcrumb aria-label="vous êtes ici :"
   ol.fr-breadcrumb__list
     li
-      a.fr-breadcrumb__link href="/" Accueil
+      a.fr-breadcrumb__link href=url("/") Accueil
     li
-      a.fr-breadcrumb__link href="/tous-les-helpers" Tous les helpers
+      a.fr-breadcrumb__link href=url("/tous-les-helpers") Tous les helpers
     li
       a.fr-breadcrumb__link aria-current="page" dsfr_submit
 
@@ -44,7 +44,7 @@ section.fr-my-4w id="options-disponibles"
   h2 Options disponibles
   p
     | Toutes les options de
-    a href="/button"  dsfr_button
+    a href=url("/button")  dsfr_button
     |  sont disponibles. La seule différence est que le type est automatiquement défini sur "submit".
 
 section.fr-my-4w id="texte"
