@@ -1,0 +1,162 @@
+doctype html
+html lang="fr" data-fr-scheme="system"
+  head
+    meta charset="UTF-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title DSFR Form Builder - Documentation
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.min.css"
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/utility/utility.min.css"
+    style
+      == Rouge::Themes::Github.render(scope: ".highlight")
+      == Rouge::Themes::Monokai.render(scope: '[data-fr-theme="dark"] .highlight')
+
+    css:
+      .highlight { padding: 1rem; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+      .highlight code { white-space: pre-wrap; }
+
+      /* Spacing between variants */
+      section.fr-my-4w {
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-default-grey);
+      }
+      section.fr-my-4w:last-child {
+        border-bottom: none;
+      }
+
+      /* Space between demo and code on mobile */
+      @media (max-width: 767px) {
+        .fr-grid-row--gutters > .fr-col-12:first-child {
+          margin-bottom: 1rem;
+        }
+      }
+
+  body
+    header.fr-header role="banner"
+      .fr-header__body
+        .fr-container
+          .fr-header__body-row
+            .fr-header__brand.fr-enlarge-link
+              .fr-header__brand-top
+                .fr-header__logo
+                  p.fr-logo DSFR Form Builder
+                .fr-header__navbar
+                  button.fr-btn--menu.fr-btn data-fr-opened="false" aria-controls="modal-header" title="Menu" type="button" id="button-header"
+                    | Menu
+              .fr-header__service
+                a href=url("/") title="Accueil - DSFR Form Builder"
+                  p.fr-header__service-title DSFR Form Builder
+                p.fr-header__service-tagline Ruby on Rails form builder pour le DSFR
+            .fr-header__tools
+              .fr-header__tools-links
+                ul.fr-btns-group
+                  li
+                    a.fr-btn href="https://rubygems.org/gems/dsfr-form_builder" target="_blank" rel="noopener"
+                      = "v#{Dsfr::FormBuilder::VERSION} sur RubyGems.org"
+                  li
+                    a.fr-btn.fr-icon-github-fill href="https://github.com/betagouv/dsfr-form-builder" target="_blank" rel="noopener"
+                      | GitHub
+      .fr-header__menu.fr-modal#modal-header aria-labelledby="button-header"
+        .fr-container
+          button.fr-btn--close.fr-btn aria-controls="modal-header" title="Fermer" type="button"
+            | Fermer
+          .fr-header__menu-links
+          nav.fr-nav role="navigation" aria-label="Menu principal"
+            ul.fr-nav__list
+              li.fr-nav__item
+                a.fr-nav__link href=url("/") Accueil
+              li.fr-nav__item
+                a.fr-nav__link href=url("/tous-les-helpers") Tous les helpers
+              li.fr-nav__item
+                button.fr-nav__btn aria-expanded="false" aria-controls="menu-champs-texte" Champs texte
+                #menu-champs-texte.fr-collapse.fr-menu
+                  ul.fr-menu__list
+                    li
+                      a.fr-nav__link href=url("/text-field") dsfr_text_field
+                    li
+                      a.fr-nav__link href=url("/text-area") dsfr_text_area
+                    li
+                      a.fr-nav__link href=url("/email-field") dsfr_email_field
+                    li
+                      a.fr-nav__link href=url("/url-field") dsfr_url_field
+                    li
+                      a.fr-nav__link href=url("/phone-field") dsfr_phone_field
+                    li
+                      a.fr-nav__link href=url("/number-field") dsfr_number_field
+                    li
+                      a.fr-nav__link href=url("/file-field") dsfr_file_field
+              li.fr-nav__item
+                button.fr-nav__btn aria-expanded="false" aria-controls="menu-champs-selection" Champs de sélection
+                #menu-champs-selection.fr-collapse.fr-menu
+                  ul.fr-menu__list
+                    li
+                      a.fr-nav__link href=url("/check-box") dsfr_check_box
+                    li
+                      a.fr-nav__link href=url("/collection-check-boxes") dsfr_collection_check_boxes
+                    li
+                      a.fr-nav__link href=url("/radio-buttons") dsfr_radio_buttons
+                    li
+                      a.fr-nav__link href=url("/select") dsfr_select
+              li.fr-nav__item
+                button.fr-nav__btn aria-expanded="false" aria-controls="menu-autres" Autres
+                #menu-autres.fr-collapse.fr-menu
+                  ul.fr-menu__list
+                    li
+                      a.fr-nav__link href=url("/button") dsfr_button
+                    li
+                      a.fr-nav__link href=url("/submit") dsfr_submit
+                    li
+                      a.fr-nav__link href=url("/label-with-hint") dsfr_label_with_hint
+
+    main#main.fr-py-4w role="main"
+      .fr-container
+        == yield
+
+    footer.fr-footer role="contentinfo"
+      .fr-container
+        .fr-footer__body
+          .fr-footer__brand.fr-enlarge-link
+            p.fr-logo DSFR Form Builder
+          .fr-footer__content
+            p.fr-footer__content-desc
+              | Cette librairie de composants vise a simplifier la creation de formulaire au DSFR dans les applications web utilisant Ruby On Rails.
+            ul.fr-footer__content-list
+              li.fr-footer__content-item
+                a.fr-footer__content-link href="https://github.com/betagouv/dsfr-form-builder" target="_blank" rel="noopener" GitHub
+              li.fr-footer__content-item
+                a.fr-footer__content-link href="https://rubygems.org/gems/dsfr-form_builder" target="_blank" rel="noopener" RubyGems
+              li.fr-footer__content-item
+                button.fr-footer__content-link aria-controls="fr-theme-modal" data-fr-opened="false"
+                  | Paramètres d'affichage
+
+    dialog#fr-theme-modal.fr-modal aria-labelledby="fr-theme-modal-title"
+      .fr-container.fr-container--fluid.fr-container-md
+        .fr-grid-row.fr-grid-row--center
+          .fr-col-12.fr-col-md-6.fr-col-lg-4
+            .fr-modal__body
+              .fr-modal__header
+                button.fr-btn--close.fr-btn aria-controls="fr-theme-modal" title="Fermer"
+                  | Fermer
+              .fr-modal__content
+                h1#fr-theme-modal-title.fr-modal__title
+                  | Paramètres d'affichage
+                .fr-display
+                  fieldset.fr-fieldset#display-fieldset
+                    legend.fr-fieldset__legend--regular.fr-fieldset__legend#display-fieldset-legend
+                      | Choisissez un thème pour personnaliser l'apparence du site.
+                    .fr-fieldset__content
+                      .fr-radio-group.fr-radio-rich
+                        input type="radio" value="light" id="fr-radios-theme-light" name="fr-radios-theme"
+                        label.fr-label for="fr-radios-theme-light"
+                          | Thème clair
+                      .fr-radio-group.fr-radio-rich
+                        input type="radio" value="dark" id="fr-radios-theme-dark" name="fr-radios-theme"
+                        label.fr-label for="fr-radios-theme-dark"
+                          | Thème sombre
+                      .fr-radio-group.fr-radio-rich
+                        input type="radio" value="system" id="fr-radios-theme-system" name="fr-radios-theme"
+                        label.fr-label for="fr-radios-theme-system"
+                          | Système
+                          span.fr-hint-text Utilise les paramètres système
+
+    script src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.module.min.js" type="module"
+    script src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.nomodule.min.js" nomodule=true

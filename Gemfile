@@ -13,3 +13,15 @@ gem "activemodel"
 gem "nokogiri"
 gem "uri" # necessary on github actions
 gem "diffy"
+
+group :docs do
+  gem "sinatra"
+  gem "slim"
+  gem "parklife"
+  gem "rackup"
+  gem "puma"
+  gem "rouge"
+  gem "rack-livereload"
+  gem "guard-livereload", require: false
+  gem "guard-rack"
+end
