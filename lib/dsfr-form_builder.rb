@@ -38,7 +38,7 @@ module Dsfr
       end
     end
 
-    def dsfr_input_group(attribute, opts, kind: :input, &block)
+    def dsfr_input_group(attribute, kind: :input, **opts, &block)
       @template.tag.div(
         yield(block),
         data: opts[:data],
@@ -51,7 +51,7 @@ module Dsfr
     end
 
     def dsfr_input_field(attribute, input_kind, opts = {})
-      dsfr_input_group(attribute, opts) do
+      dsfr_input_group(attribute, **opts) do
         @template.safe_join([
           dsfr_label_with_hint(attribute, opts),
           public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label, :data)),
@@ -61,7 +61,7 @@ module Dsfr
     end
 
     def dsfr_file_field(attribute, opts = {})
-      dsfr_input_group(attribute, opts, kind: :upload) do
+      dsfr_input_group(attribute, **opts, kind: :upload) do
         @template.safe_join([
           dsfr_label_with_hint(attribute, opts.except(:class)),
           file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
@@ -72,7 +72,7 @@ module Dsfr
 
     def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
       @template.tag.div(class: @template.class_names("fr-fieldset__element", "fr-fieldset__element--inline" => opts.delete(:inline))) do
-        dsfr_input_group(attribute, opts, kind: :checkbox) do
+        dsfr_input_group(attribute, **opts, kind: :checkbox) do
           @template.safe_join([
             check_box(attribute, opts.except(:label, :hint), checked_value, unchecked_value),
             dsfr_label_with_hint(attribute, opts)
@@ -111,7 +111,7 @@ module Dsfr
     end
 
     def dsfr_select(attribute, choices, input_options: {}, **opts)
-      dsfr_input_group(attribute, opts, kind: :select) do
+      dsfr_input_group(attribute, **opts, kind: :select) do
         @template.safe_join([
           dsfr_label_with_hint(attribute, opts),
           dsfr_select_tag(attribute, choices, opts.merge(input_options).except(:hint, :name)),
