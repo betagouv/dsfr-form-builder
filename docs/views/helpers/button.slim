@@ -1,0 +1,177 @@
+nav.fr-breadcrumb aria-label="vous êtes ici :"
+  ol.fr-breadcrumb__list
+    li
+      a.fr-breadcrumb__link href=url("/") Accueil
+    li
+      a.fr-breadcrumb__link href=url("/tous-les-helpers") Tous les helpers
+    li
+      a.fr-breadcrumb__link aria-current="page" dsfr_button
+
+h1 dsfr_button
+
+p.fr-text--lead
+  | Génère un
+  code<  &lt;button type="button"&gt;
+  |  au DSFR.
+
+p
+  a.fr-link.fr-icon-external-link-line.fr-link--icon-right href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/bouton" target="_blank" rel="noopener"
+    | Documentation DSFR - Bouton
+
+nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
+  p.fr-summary__title#fr-summary-title Sommaire
+  ol.fr-summary__list
+    li
+      a.fr-summary__link href="#usage-basique" Usage basique
+    li
+      a.fr-summary__link href="#options-disponibles" Options disponibles
+    li
+      a.fr-summary__link href="#variantes" Classes de variantes DSFR
+    li
+      a.fr-summary__link href="#secondaire" Bouton secondaire
+    li
+      a.fr-summary__link href="#tertiaire" Bouton tertiaire
+    li
+      a.fr-summary__link href="#tailles" Tailles
+    li
+      a.fr-summary__link href="#icone" Avec icône
+    li
+      a.fr-summary__link href="#icone-seule" Icône seule
+    li
+      a.fr-summary__link href="#desactive" Bouton désactivé
+    li
+      a.fr-summary__link href="#bloc" Avec bloc
+    li
+      a.fr-summary__link href="#data" Avec attributs data
+
+section.fr-my-4w id="usage-basique"
+  h2 Usage basique
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "Action"
+    RUBY
+  == example(rb_code, "usage-basique")
+
+section.fr-my-4w id="options-disponibles"
+  h2 Options disponibles
+  .fr-table
+    table
+      thead
+        tr
+          th Option
+          th Type
+          th Description
+      tbody
+        tr
+          td: code class:
+          td String
+          td Classes CSS additionnelles (variantes, icônes, tailles)
+        tr
+          td: code disabled:
+          td Boolean
+          td Désactive le bouton
+        tr
+          td: code data:
+          td Hash
+          td Attributs data-*
+        tr
+          td: code type:
+          td String
+          td Type du bouton (défaut: "button")
+
+section.fr-my-4w id="variantes"
+  h2 Classes de variantes DSFR
+  .fr-table
+    table
+      thead
+        tr
+          th Classe
+          th Description
+      tbody
+        tr
+          td: code fr-btn--secondary
+          td Style secondaire
+        tr
+          td: code fr-btn--tertiary
+          td Style tertiaire
+        tr
+          td: code fr-btn--tertiary-no-outline
+          td Tertiaire sans bordure
+        tr
+          td: code fr-btn--sm
+          td Petite taille
+        tr
+          td: code fr-btn--lg
+          td Grande taille
+        tr
+          td: code fr-btn--icon-left
+          td Icône à gauche
+        tr
+          td: code fr-btn--icon-right
+          td Icône à droite
+
+section.fr-my-4w id="secondaire"
+  h2 Bouton secondaire
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "Action secondaire", class: "fr-btn--secondary"
+    RUBY
+  == example(rb_code, "secondaire")
+
+section.fr-my-4w id="tertiaire"
+  h2 Bouton tertiaire
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "Action tertiaire", class: "fr-btn--tertiary"
+    RUBY
+  == example(rb_code, "tertiaire")
+
+section.fr-my-4w id="tailles"
+  h2 Tailles
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "Petit", class: "fr-btn--sm"
+      f.dsfr_button "Moyen (défaut)"
+      f.dsfr_button "Grand", class: "fr-btn--lg"
+    RUBY
+  == example(rb_code, "tailles")
+
+section.fr-my-4w id="icone"
+  h2 Avec icône
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "Télécharger", class: "fr-btn--icon-left fr-icon-download-line"
+    RUBY
+  == example(rb_code, "icone")
+
+section.fr-my-4w id="icone-seule"
+  h2 Icône seule
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "", class: "fr-btn--icon fr-icon-add-line", title: "Ajouter"
+    RUBY
+  == example(rb_code, "icone-seule")
+
+section.fr-my-4w id="desactive"
+  h2 Bouton désactivé
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "Désactivé", disabled: true
+    RUBY
+  == example(rb_code, "desactive")
+
+section.fr-my-4w id="bloc"
+  h2 Avec bloc (contenu personnalisé)
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button(class: "fr-btn--icon-left fr-icon-arrow-right-line") { "Continuer" }
+    RUBY
+  == example(rb_code, "bloc")
+
+section.fr-my-4w id="data"
+  h2 Avec attributs data
+  ruby:
+    rb_code = <<~RUBY
+      f.dsfr_button "Confirmer", data: { action: "click->modal#open", turbo: false }
+    RUBY
+  == example(rb_code, "data")

@@ -26,6 +26,16 @@ Vous pouvez également spécifier le builder par défaut dans votre fichier `app
 config.action_view.default_form_builder = Dsfr::FormBuilder
 ```
 
+## Documentation
+
+Pour lancer le serveur de documentation en local :
+
+```bash
+make docs
+```
+
+Puis ouvrir http://localhost:9292
+
 ## Licence
 
 Le code source et la gem sont distribués sous licence [MIT](https://github.com/betagouv/dsfr-form-builder/blob/main/LICENSE).

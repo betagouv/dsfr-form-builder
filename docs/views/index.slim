@@ -1,0 +1,72 @@
+- form_builder = Dsfr::FormBuilder.new(:demo_model, @demo_model, self, {})
+
+h1 dsfr-form-builder
+
+p.fr-text--lead
+  | Un form builder Ruby on Rails pour créer des formulaires conformes au
+  a< href="https://www.systeme-de-design.gouv.fr/" target="_blank" rel="noopener" Système de Design de l'État (DSFR)
+  | .
+
+.fr-callout.fr-my-4w
+  p.fr-callout__text
+    | Génère automatiquement le markup HTML complexe du DSFR (labels, hints, messages d'erreur, classes CSS) à partir d'une API simple et familière.
+
+section.fr-my-4w
+  h2 Installation
+  p Ajoutez cette ligne à votre Gemfile :
+  == code_block(%(gem "dsfr-form_builder"), language: "rb")
+
+section.fr-my-4w
+  h2 Utilisation
+
+  p Configurez le form builder dans votre formulaire Rails :
+
+  ruby:
+    example_code = <<~ERB
+      <%= form_with model: @user, builder: Dsfr::FormBuilder do |f| %>
+        <%= f.dsfr_text_field :name %>
+        <%= f.dsfr_email_field :email %>
+        <%= f.dsfr_text_area :bio, hint: "Décrivez-vous en quelques mots" %>
+        <%= f.dsfr_select :role, [["Admin", "admin"], ["User", "user"]] %>
+        <%= f.dsfr_check_box :terms, label: "J'accepte les CGU" %>
+        <%= f.dsfr_submit "Enregistrer" %>
+      <% end %>
+    ERB
+  == code_block(example_code, language: "erb")
+
+  p.fr-mt-4w
+    a.fr-link href=url("/tous-les-helpers") Tous les helpers
+
+  p.fr-mt-2w
+    | Ou définissez-le comme builder par défaut dans votre
+    code<  ApplicationController
+    |  :
+
+  ruby:
+    controller_code = <<~RUBY
+      class ApplicationController < ActionController::Base
+        default_form_builder Dsfr::FormBuilder
+      end
+    RUBY
+  == code_block(controller_code, language: "rb")
+
+  h3.fr-mt-4w Option display_required_tags
+  p L'affichage de l'astérisque pour les champs obligatoires peut être désactivé globalement lors de l'initialisation du form builder :
+  == code_block(%(<%= form_with model: @user, builder: Dsfr::FormBuilder, display_required_tags: false do |f| %>\n  ...\n<% end %>))
+
+section.fr-my-4w
+  h2 Démo
+
+  p Voici un aperçu des différents composants disponibles :
+
+  .fr-grid-row
+    .fr-col-12.fr-col-md-8
+      form
+        == form_builder.dsfr_text_field :name, label: "Nom"
+        == form_builder.dsfr_email_field :email, label: "Email", placeholder: "exemple@domaine.fr"
+        == form_builder.dsfr_text_area :bio, label: "Biographie", hint: "Décrivez-vous en quelques mots"
+        == form_builder.dsfr_select :role, [ ["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"] ], label: "Rôle"
+        == form_builder.dsfr_radio_buttons :pronoun, [ { value: "elle", label: "Elle" }, { value: "il", label: "Il" }, { value: "iel", label: "Iel" } ], legend: "Pronom"
+        == form_builder.dsfr_check_box :terms, label: "J'accepte les conditions"
+        == form_builder.dsfr_submit "Envoyer"
+

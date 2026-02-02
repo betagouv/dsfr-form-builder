@@ -2,6 +2,8 @@ module Dsfr
   include ActiveSupport::Configurable
 
   class FormBuilder < ActionView::Helpers::FormBuilder
+    VERSION = "0.0.9"
+
     include ActionView::Helpers::OutputSafetyHelper
 
     attr_accessor :display_required_tags
