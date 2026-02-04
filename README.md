@@ -31,7 +31,7 @@ config.action_view.default_form_builder = Dsfr::FormBuilder
 Pour lancer le serveur de documentation en local :
 
 ```bash
-make docs
+make docs-live
 ```
 
 Puis ouvrir http://localhost:9292
