@@ -29,6 +29,8 @@ jobs:
       - name: Build static site
         run: bundle exec parklife build --base https://betagouv.github.io/dsfr-form-builder/
         working-directory: docs
+        env:
+          RACK_ENV: test
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
