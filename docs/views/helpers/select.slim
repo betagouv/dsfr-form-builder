@@ -26,8 +26,6 @@ nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
     li
       a.fr-summary__link href="#options-disponibles" Options disponibles
     li
-      a.fr-summary__link href="#input-options" Options de input_options
-    li
       a.fr-summary__link href="#hint" Avec texte d'aide
     li
       a.fr-summary__link href="#obligatoire" Champ obligatoire
@@ -53,53 +51,61 @@ section.fr-my-4w id="usage-basique"
 
 section.fr-my-4w id="options-disponibles"
   h2 Options disponibles
-  .fr-table
-    table
-      thead
-        tr
-          th Option
-          th Type
-          th Description
-      tbody
-        tr
-          td: code label:
-          td String
-          td Texte personnalisé pour le label
-        tr
-          td: code hint:
-          td String
-          td Texte d'aide affiché sous le label
-        tr
-          td: code required:
-          td Boolean
-          td Affiche une astérisque rouge
-        tr
-          td: code input_options:
-          td Hash
-          td Options pour le select (voir ci-dessous)
+  | Signature de la méthode :
+  ruby:
+    rb_code = <<~ERB
+      <%= f.dsfr_select(method, choices = nil, input_options = {}, **html_options) %>
+    ERB
+  == code_block(rb_code)
+  .fr-grid-row.fr-grid-row--gutters.fr-mt-2w
+    .fr-col-12.fr-col-md-6
+      h3.fr-mb-0 input_options
+      .fr-table
+        table
+          thead
+            tr
+              th Option
+              th Type
+              th Description
+          tbody
+            tr
+              td: code include_blank:
+              td String/Boolean
+              td Ajoute une option vide au début
+            tr
+              td: code selected:
+              td String
+              td Valeur pré-sélectionnée
+            tr
+              td: code required:
+              td Boolean
+              td Affiche une astérisque rouge
+    .fr-col-12.fr-col-md-6
+      h3.fr-mb-0 html_options
+      .fr-table
+        table
+          thead
+            tr
+              th Option
+              th Type
+              th Description
+          tbody
+            tr
+              td: code label:
+              td String
+              td Texte personnalisé pour le label
+            tr
+              td: code hint:
+              td String
+              td Texte d'aide affiché sous le label
+            tr
+              td: code disabled:
+              td Boolean
+              td Désactive le champ entier
 
-section.fr-my-4w id="input-options"
-  h2 Options de input_options
-  .fr-table
-    table
-      thead
-        tr
-          th Option
-          th Type
-          th Description
-      tbody
-        tr
-          td: code include_blank:
-          td String/Boolean
-          td Ajoute une option vide au début
-        tr
-          td: code selected:
-          td String
-          td Valeur pré-sélectionnée
-        tr
-          td: code disabled:
-          td String/Array/Boolean
-          td Désactive une ou plusieurs options, ou le champ entier
+    a href="https://api.rubyonrails.org/v8.0/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select" target="_blank"
+      | Voir la documentation de `FormOptionsHelper#select`
+
 
 section.fr-my-4w id="hint"
   h2 Avec texte d'aide
@@ -112,10 +118,11 @@ section.fr-my-4w id="hint"
 
 section.fr-my-4w id="obligatoire"
   h2 Champ obligatoire
+  .fr-mb-2w Note : include_blank est automatiquement activé (et ne peut pas être désactivé) lorsque required est activé
   ruby:
     rb_code = <<~RUBY
       choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
-      f.dsfr_select :role, choices, required: true
+      f.dsfr_select :role, choices, {}, required: true
     RUBY
   == example(rb_code, "obligatoire")
 
@@ -124,7 +131,7 @@ section.fr-my-4w id="include-blank"
   ruby:
     rb_code = <<~RUBY
       choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
-      f.dsfr_select :role, choices, input_options: { include_blank: "Choisir..." }
+      f.dsfr_select :role, choices, { include_blank: "Choisir..." }
     RUBY
   == example(rb_code, "include-blank")
 
@@ -133,25 +140,16 @@ section.fr-my-4w id="selected"
   ruby:
     rb_code = <<~RUBY
       choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
-      f.dsfr_select :role, choices, input_options: { selected: "editor" }
+      f.dsfr_select :role, choices, { selected: "editor" }
     RUBY
   == example(rb_code, "selected")
-
-section.fr-my-4w id="disabled-options"
-  h2 Avec options désactivées
-  ruby:
-    rb_code = <<~RUBY
-      choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
-      f.dsfr_select :role, choices, input_options: { disabled: "admin" }
-    RUBY
-  == example(rb_code, "disabled-options")
 
 section.fr-my-4w id="disabled"
   h2 Champ désactivé
   ruby:
     rb_code = <<~RUBY
       choices = [["Administrateur", "admin"], ["Éditeur", "editor"], ["Lecteur", "reader"]]
-      f.dsfr_select :role, choices, input_options: { disabled: true }
+      f.dsfr_select :role, choices, {}, disabled: true
     RUBY
   == example(rb_code, "disabled")
 
