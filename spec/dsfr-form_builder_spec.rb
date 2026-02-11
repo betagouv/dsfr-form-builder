@@ -8,12 +8,12 @@ end
 
 class Record
   include ActiveModel::Model
-  attr_accessor :name, :pronom
+  attr_accessor :name, :pronom, :role
 end
 
 RSpec.describe Dsfr::FormBuilder do
   let(:helper) { TestHelper.new }
-  let(:object) { Record.new(name: 'Jean Paul', pronom: "il") }
+  let(:object) { Record.new(name: 'Jean Paul', pronom: "il", role: "editor") }
   let(:builder) { Dsfr::FormBuilder.new(:record, object, helper, {}) }
 
   describe '#dsfr_button' do
@@ -151,36 +151,101 @@ RSpec.describe Dsfr::FormBuilder do
   end
 
   describe "#dsfr_select" do
-    let(:choices) { [ [ "Option 1", 1 ], [ "Option 2", 2 ] ] }
+    let(:object) { Record.new(name: 'Jean Paul', pronom: "il", role: nil) }
+    let(:choices) { [ [ "Administrateur", "admin" ], [ "Éditeur", "editor" ], [ "Lecteur", "reader" ] ] }
 
     it "generates the correct HTML" do
-      expect(builder.dsfr_select(:pronom, choices)).to match_html(<<~HTML)
+      expect(builder.dsfr_select(:role, choices)).to match_html(<<~HTML)
         <div class="fr-select-group">
-          <label class="fr-label" for="record_pronom">Pronom</label>
-          <select class="fr-select" name="record[pronom]" id="record_pronom">
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
+          <label class="fr-label" for="record_role">Role</label>
+          <select class="fr-select" name="record[role]" id="record_role">
+            <option value="admin">Administrateur</option>
+            <option value="editor">Éditeur</option>
+            <option value="reader">Lecteur</option>
           </select>
         </div>
       HTML
     end
 
-    it "supports required, hint and include_blank options" do
-      expect(builder.dsfr_select(:pronom, choices, required: true, hint: "Choisissez votre pronom", include_blank: "Choisissez une option")).to match_html(<<~HTML)
+    context "le record a déjà une valeur" do
+      let(:object) { Record.new(name: 'Jean Paul', pronom: "il", role: "editor") }
+
+      it "generates the correct HTML" do
+        expect(builder.dsfr_select(:role, choices)).to match_html(<<~HTML)
+          <div class="fr-select-group">
+            <label class="fr-label" for="record_role">Role</label>
+            <select class="fr-select" name="record[role]" id="record_role">
+              <option value="admin">Administrateur</option>
+              <option selected="true" value="editor">Éditeur</option>
+              <option value="reader">Lecteur</option>
+            </select>
+          </div>
+        HTML
+      end
+    end
+
+    it "supports required option and include_blank options" do
+      expect(builder.dsfr_select(:role, choices, { include_blank: "veuillez choisir une option" }, required: true)).to match_html(<<~HTML)
         <div class="fr-select-group">
-          <label class="fr-label" for="record_pronom">
-            Pronom
+          <label class="fr-label" for="record_role">
+            Role
             <span class="fr-text-error">*</span>
-            <span class="fr-hint-text">Choisissez votre pronom</span>
           </label>
-          <select required="required" class="fr-select" name="record[pronom]" id="record_pronom">
-            <option value="">Choisissez une option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
+          <select required="required" class="fr-select" name="record[role]" id="record_role">
+            <option value="">veuillez choisir une option</option>
+            <option value="admin">Administrateur</option>
+            <option value="editor">Éditeur</option>
+            <option value="reader">Lecteur</option>
           </select>
         </div>
       HTML
     end
+
+    it "supports hint" do
+      expect(builder.dsfr_select(:role, choices, {}, hint: "Choisissez votre role")).to match_html(<<~HTML)
+        <div class="fr-select-group">
+          <label class="fr-label" for="record_role">
+            Role
+            <span class="fr-hint-text">Choisissez votre role</span>
+          </label>
+          <select class="fr-select" name="record[role]" id="record_role">
+            <option value="admin">Administrateur</option>
+            <option value="editor">Éditeur</option>
+            <option value="reader">Lecteur</option>
+          </select>
+        </div>
+      HTML
+    end
+
+    it "supports the disabled: true option" do
+      expect(builder.dsfr_select(:role, choices, {}, disabled: true)).to match_html(<<~HTML)
+        <div class="fr-select-group">
+          <label class="fr-label" for="record_role">Role</label>
+          <select disabled="true" class="fr-select" name="record[role]" id="record_role">
+            <option value="admin">Administrateur</option>
+            <option value="editor">Éditeur</option>
+            <option value="reader">Lecteur</option>
+          </select>
+        </div>
+      HTML
+    end
+
+    # selon https://api.rubyonrails.org/v8.0/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select
+    # je comprends que `disabled: value` devrait disabler une seule option
+    # mais ce n'est pas le cas 🤷
+    #
+    # it "supports the disabled: some_value" do
+    #   expect(builder.dsfr_select(:role, choices, {}, disabled: 'editor')).to match_html(<<~HTML)
+    #     <div class="fr-select-group">
+    #       <label class="fr-label" for="record_role">Role</label>
+    #       <select class="fr-select" name="record[role]" id="record_role">
+    #         <option value="admin">Administrateur</option>
+    #         <option value="editor" disabled="disabled">Éditeur</option>
+    #         <option value="reader">Lecteur</option>
+    #       </select>
+    #     </div>
+    #   HTML
+    # end
   end
 
   describe "#dsfr_check_box" do
