@@ -57,7 +57,7 @@ class DemoModel
 end
 
 class DocsApp < Sinatra::Base
-  set :environment, :test
+  set :environment, ENV.fetch("RACK_ENV", "development").to_sym
   set :views, File.expand_path("views", __dir__)
 
   helpers ActionView::Helpers::FormHelper
