@@ -2,7 +2,7 @@ module Dsfr
   include ActiveSupport::Configurable
 
   class FormBuilder < ActionView::Helpers::FormBuilder
-    VERSION = "0.0.9"
+    VERSION = "0.0.10"
 
     include ActionView::Helpers::OutputSafetyHelper
 
@@ -110,21 +110,16 @@ module Dsfr
       end
     end
 
-    def dsfr_select(attribute, choices, input_options: {}, **opts)
-      dsfr_input_group(attribute, **opts, kind: :select) do
+    def dsfr_select(attribute, choices, input_options = {}, **html_options)
+      select_html_options = html_options.dup.except(:hint, :name)
+      select_html_options[:class] = @template.class_names("fr-select", select_html_options[:class])
+      dsfr_input_group(attribute, **html_options, kind: :select) do
         @template.safe_join([
-          dsfr_label_with_hint(attribute, opts),
-          dsfr_select_tag(attribute, choices, opts.merge(input_options).except(:hint, :name)),
+          dsfr_label_with_hint(attribute, html_options),
+          select(attribute, choices, input_options, **select_html_options),
           dsfr_error_message(attribute)
         ])
       end
-    end
-
-    def dsfr_select_tag(attribute, choices, opts)
-      opts[:class] = @template.class_names("fr-select", opts[:class])
-      options = opts.slice(:include_blank, :selected, :disabled)
-      html_options = opts.except(:include_blank, :selected, :disabled)
-      select(attribute, choices, options, **html_options)
     end
 
     def dsfr_radio_buttons(attribute, choices, legend: nil, hint: nil, **opts)
