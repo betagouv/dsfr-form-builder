@@ -25,3 +25,5 @@ group :docs do
   gem "guard-livereload", require: false
   gem "guard-rack"
 end
+
+gem "rake", "~> 13.3"
