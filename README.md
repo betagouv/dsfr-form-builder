@@ -40,10 +40,10 @@ Puis ouvrir http://localhost:9292
 
 1. Créer une nouvelle branche
 1. Mettre à jour la version dans `lib/dsfr-form_builder.rb` et dans `lib/dsfr/components/version.rb`
-2. Commit, push, puis merge PR
-3. Lancer la commande : `bundle exec rake release`
-
-puis allez sur https://github.com/betagouv/dsfr-view-components/releases pour créer une release manuellement basée sur le tag tout juste créé.
+3. lancer `bundle`
+4. Commit, push, puis merge PR
+5. Lancer la commande : `bundle exec rake release`
+6. Créez une release GH manuellement depuis https://github.com/betagouv/dsfr-view-components/releases
 
 ## Licence
 
