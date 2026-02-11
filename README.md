@@ -36,6 +36,15 @@ make docs-live
 
 Puis ouvrir http://localhost:9292
 
+## Déploiement
+
+1. Créer une nouvelle branche
+1. Mettre à jour la version dans `lib/dsfr-form_builder.rb` et dans `lib/dsfr/components/version.rb`
+2. Commit, push, puis merge PR
+3. Lancer la commande : `bundle exec rake release`
+
+puis allez sur https://github.com/betagouv/dsfr-view-components/releases pour créer une release manuellement basée sur le tag tout juste créé.
+
 ## Licence
 
 Le code source et la gem sont distribués sous licence [MIT](https://github.com/betagouv/dsfr-form-builder/blob/main/LICENSE).
