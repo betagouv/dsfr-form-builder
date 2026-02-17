@@ -38,16 +38,15 @@ module Dsfr
       end
     end
 
-    def dsfr_input_group(attribute, kind: :input, **opts, &block)
+    def dsfr_input_group(attribute, kind: :input, **opts)
       @template.tag.div(
-        yield(block),
         data: opts[:data],
         class: @template.class_names(
               "fr-#{kind}-group",
               opts[:class],
               "fr-#{kind}-group--error" => @object&.errors&.include?(attribute)
         )
-      )
+      ) { yield }
     end
 
     def dsfr_input_field(attribute, input_kind, opts = {})
