@@ -116,7 +116,7 @@ RSpec.describe Dsfr::FormBuilder do
         expect(builder.dsfr_text_field(:name, value: "autre valeur")).to match_html(<<~HTML)
           <div class="fr-input-group">
             <label class="fr-label" for="record_name">Name</label>
-            <input class="fr-input" type="text" value="autre valeur" name="record[name]" id="record_name" />
+            <input class="fr-input" value="autre valeur" type="text" name="record[name]" id="record_name" />
           </div>
         HTML
       end
