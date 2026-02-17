@@ -80,6 +80,27 @@ RSpec.describe Dsfr::FormBuilder do
     end
   end
 
+  describe '#dsfr_input_group' do
+    it 'wraps block content inside the div when rendered through ERB' do
+      view = ActionView::Base.with_empty_template_cache.new(
+        ActionView::LookupContext.new([]), {}, nil
+      )
+
+      result = view.render(inline: <<~ERB, locals: { object: object })
+        <% f = Dsfr::FormBuilder.new(:record, object, self, {}) %>
+        <%= f.dsfr_input_group(:name) do %>
+          <%= f.dsfr_label_with_hint(:name, {}) %>
+          <%= f.text_field(:name, class: "fr-input") %>
+        <% end %>
+      ERB
+
+      wrapper = Nokogiri::HTML.fragment(result).at_css('div.fr-input-group')
+      expect(wrapper).to be_present, "expected a div.fr-input-group wrapper"
+      expect(wrapper.css('label').count).to eq(1)
+      expect(wrapper.css('input').count).to eq(1)
+    end
+  end
+
   describe '#dsfr_text_field' do
     it 'generates the correct HTML' do
       expect(builder.dsfr_text_field(:name)).to match_html(<<~HTML)
