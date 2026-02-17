@@ -111,6 +111,17 @@ RSpec.describe Dsfr::FormBuilder do
       HTML
     end
 
+    context "quand value: est passé en option" do
+      it "le for du label correspond toujours à l'id de l'input" do
+        expect(builder.dsfr_text_field(:name, value: "autre valeur")).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input" value="autre valeur" type="text" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+
     context 'when object is nil' do
       let(:object) { nil }
 
