@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'rack/test'
+ENV['RACK_ENV'] ||= 'test'
 require_relative '../docs/app'
 
 RSpec.describe DocsApp do

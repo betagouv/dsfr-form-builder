@@ -4,7 +4,7 @@
 
 Cette gem permet de créer des formulaires avec Ruby on Rails en utilisant le design system de l'Etat français (DSFR).
 
-## Installation
+## Usage
 
 Ajoutez cette ligne à votre Gemfile :
 
@@ -26,7 +26,17 @@ Vous pouvez également spécifier le builder par défaut dans votre fichier `app
 config.action_view.default_form_builder = Dsfr::FormBuilder
 ```
 
-## Documentation
+## Contribution
+
+### Tests
+
+Lancer les tests avec
+
+```bash
+make test
+```
+
+### Documentation
 
 Pour lancer le serveur de documentation en local :
 
@@ -36,7 +46,7 @@ make docs-live
 
 Puis ouvrir http://localhost:9292
 
-## Déploiement
+### Déploiement
 
 1. Créer une nouvelle branche
 1. Mettre à jour la version dans `lib/dsfr-form_builder.rb` et dans `lib/dsfr/components/version.rb`
