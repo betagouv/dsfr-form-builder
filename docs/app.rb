@@ -58,6 +58,7 @@ end
 
 class DocsApp < Sinatra::Base
   set :environment, ENV.fetch("RACK_ENV", "development").to_sym
+  set :host_authorization, { permitted_hosts: [] }
   set :views, File.expand_path("views", __dir__)
 
   helpers ActionView::Helpers::FormHelper
