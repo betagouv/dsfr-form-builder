@@ -14,7 +14,8 @@ end
 RSpec.describe Dsfr::FormBuilder do
   let(:helper) { TestHelper.new }
   let(:object) { Record.new(name: 'Jean Paul', pronom: "il", role: "editor") }
-  let(:builder) { Dsfr::FormBuilder.new(:record, object, helper, {}) }
+  let(:builder_options) { ({}) }
+  let(:builder) { Dsfr::FormBuilder.new(:record, object, helper, builder_options) }
 
   describe '#dsfr_button' do
     it 'generates the correct HTML' do
@@ -165,12 +166,28 @@ RSpec.describe Dsfr::FormBuilder do
         <div class="fr-upload-group">
           <label class="fr-label" for="record_name">
             Name
-            <span class="fr-text-error">*</span>
             <span class="fr-hint-text">Upload a file</span>
           </label>
           <input class="fr-upload" required="required" type="file" name="record[name]" id="record_name" />
         </div>
       HTML
+    end
+
+    context "display_required_tags is true" do
+      let(:builder_options) { { display_required_tags: true } }
+
+      it "required option adds a star thingy" do
+        expect(builder.dsfr_file_field(:name, hint: "Upload a file", required: true)).to match_html(<<~HTML)
+          <div class="fr-upload-group">
+            <label class="fr-label" for="record_name">
+              Name
+              <span class="fr-text-error">*</span>
+              <span class="fr-hint-text">Upload a file</span>
+            </label>
+            <input class="fr-upload" required="required" type="file" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
     end
 
     context 'when object is nil' do
@@ -221,7 +238,6 @@ RSpec.describe Dsfr::FormBuilder do
         <div class="fr-select-group">
           <label class="fr-label" for="record_role">
             Role
-            <span class="fr-text-error">*</span>
           </label>
           <select required="required" class="fr-select" name="record[role]" id="record_role">
             <option value="">veuillez choisir une option</option>
@@ -232,6 +248,28 @@ RSpec.describe Dsfr::FormBuilder do
         </div>
       HTML
     end
+
+    context "display_required_tags is true" do
+      let(:builder_options) { { display_required_tags: true } }
+
+      it "required option adds a star thingy" do
+        expect(builder.dsfr_select(:role, choices, { include_blank: "veuillez choisir une option" }, required: true)).to match_html(<<~HTML)
+          <div class="fr-select-group">
+            <label class="fr-label" for="record_role">
+              Role
+              <span class="fr-text-error">*</span>
+            </label>
+            <select required="required" class="fr-select" name="record[role]" id="record_role">
+              <option value="">veuillez choisir une option</option>
+              <option value="admin">Administrateur</option>
+              <option value="editor">Éditeur</option>
+              <option value="reader">Lecteur</option>
+            </select>
+          </div>
+        HTML
+      end
+    end
+
 
     it "supports hint" do
       expect(builder.dsfr_select(:role, choices, {}, hint: "Choisissez votre role")).to match_html(<<~HTML)

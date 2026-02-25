@@ -50,9 +50,12 @@ section.fr-my-4w
     RUBY
   == code_block(controller_code, language: "rb")
 
-  h3.fr-mt-4w Option display_required_tags
-  p L'affichage de l'astérisque pour les champs obligatoires peut être désactivé globalement lors de l'initialisation du form builder :
-  == code_block(%(<%= form_with model: @user, builder: Dsfr::FormBuilder, display_required_tags: false do |f| %>\n  ...\n<% end %>))
+  h3.fr-mt-4w
+    | Option display_required_tags (default: false)
+  p
+    |> Par défaut, les champs obligatoires sont affichés comme les autres.
+    | L'affichage d'une astérisque pour les champs obligatoires peut être activé globalement lors de l'initialisation du form builder :
+  == code_block(%(<%= form_with model: @user, builder: Dsfr::FormBuilder, display_required_tags: true do |f| %>\n  ...\n<% end %>))
 
 section.fr-my-4w
   h2 Démo
