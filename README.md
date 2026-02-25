@@ -53,7 +53,7 @@ Puis ouvrir http://localhost:9292
 3. lancer `bundle`
 4. Commit, push, puis merge PR
 5. Lancer la commande : `bundle exec rake release`
-6. Créez une release GH manuellement depuis https://github.com/betagouv/dsfr-view-components/releases
+6. Créez une release GH manuellement depuis https://github.com/betagouv/dsfr-form-builder/releases
 
 ## Licence
 
