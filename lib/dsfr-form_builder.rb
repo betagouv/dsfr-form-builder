@@ -10,7 +10,7 @@ module Dsfr
 
     def initialize(object_name, object, template, options)
       super
-      self.display_required_tags = options.fetch(:display_required_tags, true)
+      self.display_required_tags = options.fetch(:display_required_tags, false)
     end
 
     def dsfr_button(value = nil, options = {}, &block)

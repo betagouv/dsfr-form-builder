@@ -35,6 +35,8 @@ nav.fr-summary aria-labelledby="fr-summary-title" role="navigation"
       a.fr-summary__link href="#checked" Avec option pré-sélectionnée
     li
       a.fr-summary__link href="#rich" Style riche
+    li
+      a.fr-summary__link href="#required" Required
 
 section.fr-my-4w id="usage-basique"
   h2 Usage basique
@@ -137,3 +139,13 @@ section.fr-my-4w id="rich"
       f.dsfr_radio_buttons :pronoun, choices, legend: "Pronom", rich: true
     RUBY
   == example(rb_code, "rich")
+
+section.fr-my-4w id="required"
+  h2 Required
+  p Un choix est obligatoire
+  ruby:
+    rb_code = <<~RUBY
+      choices = [{ value: "elle", label: "Elle", hint: "Elle était présente" }, { value: "il", label: "Il", hint: "Il était présent" }, { value: "iel", label: "Iel", hint: "Iel était présent" }]
+      f.dsfr_radio_buttons :pronoun, choices, legend: "Pronom", required: true
+    RUBY
+  == example(rb_code, "required")
