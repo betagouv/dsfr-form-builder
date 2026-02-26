@@ -130,6 +130,17 @@ RSpec.describe Dsfr::FormBuilder do
         expect { builder.dsfr_text_field(:name, label: "Label") }.not_to raise_error
       end
     end
+
+    context 'when data attributes are passed' do
+      it 'passes data attributes to the input, not the wrapper div' do
+        expect(builder.dsfr_text_field(:name, data: { controller: "foo" })).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input" data-controller="foo" type="text" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
   end
 
   describe '#dsfr_text_area' do
