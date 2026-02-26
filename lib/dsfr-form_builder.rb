@@ -50,10 +50,10 @@ module Dsfr
     end
 
     def dsfr_input_field(attribute, input_kind, opts = {})
-      dsfr_input_group(attribute, **opts) do
+      dsfr_input_group(attribute, **opts.except(:data)) do
         @template.safe_join([
           dsfr_label_with_hint(attribute, opts.except(:value)),
-          public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label, :data)),
+          public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label)),
           dsfr_error_message(attribute)
         ])
       end

@@ -134,7 +134,7 @@ section.fr-my-4w id="data"
   h2 Avec attributs data
   ruby:
     rb_code = <<~RUBY
-      f.dsfr_text_field :name, data: { controller: "autocomplete", action: "input->autocomplete#search" }
+      f.dsfr_text_field :name, data: { controller: "autocomplete", action: "autocomplete#search" }
     RUBY
   == example(rb_code, "data")
 
