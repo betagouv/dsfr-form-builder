@@ -50,20 +50,20 @@ module Dsfr
     end
 
     def dsfr_input_field(attribute, input_kind, opts = {})
-      dsfr_input_group(attribute, **opts.except(:data)) do
+      dsfr_input_group(attribute, **opts.except(:data, :class, :group_class), class: opts[:group_class]) do
         @template.safe_join([
-          dsfr_label_with_hint(attribute, opts.except(:value)),
-          public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label)),
+          dsfr_label_with_hint(attribute, opts.except(:value, :class)),
+          public_send(input_kind, attribute, class: @template.class_names("fr-input", opts[:class]), **opts.except(:class, :hint, :label, :group_class)),
           dsfr_error_message(attribute)
         ])
       end
     end
 
     def dsfr_file_field(attribute, opts = {})
-      dsfr_input_group(attribute, **opts, kind: :upload) do
+      dsfr_input_group(attribute, **opts.except(:data, :class, :group_class), class: opts[:group_class], kind: :upload) do
         @template.safe_join([
           dsfr_label_with_hint(attribute, opts.except(:class, :value)),
-          file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
+          file_field(attribute, class: @template.class_names("fr-upload", opts[:class]), **opts.except(:class, :hint, :label, :data, :group_class)),
           dsfr_error_message(attribute)
         ])
       end
@@ -71,10 +71,10 @@ module Dsfr
 
     def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
       @template.tag.div(class: @template.class_names("fr-fieldset__element", "fr-fieldset__element--inline" => opts.delete(:inline))) do
-        dsfr_input_group(attribute, **opts, kind: :checkbox) do
+        dsfr_input_group(attribute, **opts.except(:data, :class, :group_class), class: opts[:group_class], kind: :checkbox) do
           @template.safe_join([
-            check_box(attribute, opts.except(:label, :hint), checked_value, unchecked_value),
-            dsfr_label_with_hint(attribute, opts)
+            check_box(attribute, opts.except(:label, :hint, :group_class), checked_value, unchecked_value),
+            dsfr_label_with_hint(attribute, opts.except(:class))
           ])
         end
       end
@@ -110,11 +110,11 @@ module Dsfr
     end
 
     def dsfr_select(attribute, choices, input_options = {}, **html_options)
-      select_html_options = html_options.dup.except(:hint, :name)
+      select_html_options = html_options.dup.except(:hint, :name, :label, :group_class)
       select_html_options[:class] = @template.class_names("fr-select", select_html_options[:class])
-      dsfr_input_group(attribute, **html_options, kind: :select) do
+      dsfr_input_group(attribute, **html_options.except(:data, :class, :group_class), class: html_options[:group_class], kind: :select) do
         @template.safe_join([
-          dsfr_label_with_hint(attribute, html_options),
+          dsfr_label_with_hint(attribute, html_options.except(:class)),
           select(attribute, choices, input_options, **select_html_options),
           dsfr_error_message(attribute)
         ])
