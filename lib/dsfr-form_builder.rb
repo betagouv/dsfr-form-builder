@@ -126,7 +126,7 @@ module Dsfr
         legend || @object.class.human_attribute_name(attribute),
         hint_tag(hint)
       ])
-      @template.tag.fieldset(class: "fr-fieldset") do
+      @template.tag.fieldset(class: @template.class_names("fr-fieldset", opts[:fieldset_class])) do
         @template.safe_join([
           @template.tag.legend(legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
           choices.map do |choice|
@@ -136,7 +136,7 @@ module Dsfr
               label_text: choice[:label],
               hint: choice[:hint],
               checked: choice[:checked],
-              **opts
+              **opts.except(:fieldset_class)
             )
           end
         ])
@@ -148,7 +148,7 @@ module Dsfr
         @template.tag.div(class: @template.class_names("fr-radio-group", "fr-radio-rich" => rich)) do
           @template.safe_join([
             radio_button(attribute, value, checked:, **opts),
-            dsfr_label_with_hint(attribute, opts.merge(label_text: label_text, hint: hint, value: value))
+            dsfr_label_with_hint(attribute, opts.except(:class).merge(label_text: label_text, hint: hint, value: value))
           ])
         end
       end

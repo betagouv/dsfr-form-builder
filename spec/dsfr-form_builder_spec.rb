@@ -802,5 +802,45 @@ RSpec.describe Dsfr::FormBuilder do
         expect { builder.dsfr_radio_buttons(:pronom, choices, legend: "Legend", label_text: "Label") }.not_to raise_error
       end
     end
+
+    context 'when class is passed' do
+      it 'sets class on each radio input but not the labels' do
+        simple_choices = [ { value: "elle", label: "Elle" }, { value: "il", label: "Il" } ]
+        expect(builder.dsfr_radio_buttons(:pronom, simple_choices, legend: "Pronom", class: "extra-class")).to match_html(<<~HTML)
+          <fieldset class="fr-fieldset">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend">Pronom</legend>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group">
+                <input class="extra-class" type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
+                <label class="fr-label" for="record_pronom_elle">Elle</label>
+              </div>
+            </div>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group">
+                <input class="extra-class" type="radio" value="il" name="record[pronom]" id="record_pronom_il">
+                <label class="fr-label" for="record_pronom_il">Il</label>
+              </div>
+            </div>
+          </fieldset>
+        HTML
+      end
+    end
+
+    context 'when fieldset_class is passed' do
+      it 'sets class on the fieldset' do
+        simple_choices = [ { value: "elle", label: "Elle" } ]
+        expect(builder.dsfr_radio_buttons(:pronom, simple_choices, legend: "Pronom", fieldset_class: "extra-class")).to match_html(<<~HTML)
+          <fieldset class="fr-fieldset extra-class">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend">Pronom</legend>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group">
+                <input type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
+                <label class="fr-label" for="record_pronom_elle">Elle</label>
+              </div>
+            </div>
+          </fieldset>
+        HTML
+      end
+    end
   end
 end
