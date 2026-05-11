@@ -49,7 +49,7 @@ Puis ouvrir http://localhost:9292
 ### Déploiement
 
 1. Créer une nouvelle branche
-1. Mettre à jour la version dans `lib/dsfr-form_builder.rb` et dans `lib/dsfr/components/version.rb`
+1. Mettre à jour la version dans `lib/dsfr-form_builder.rb` et dans `dsfr-form_builder.gemspec`
 3. lancer `bundle`
 4. Commit, push, puis merge PR
 5. Lancer la commande : `bundle exec rake release`

@@ -2,7 +2,7 @@ module Dsfr
   include ActiveSupport::Configurable
 
   class FormBuilder < ActionView::Helpers::FormBuilder
-    VERSION = "0.0.13"
+    VERSION = "0.0.14"
 
     include ActionView::Helpers::OutputSafetyHelper
 
