@@ -1,6 +1,4 @@
 module Dsfr
-  include ActiveSupport::Configurable
-
   class FormBuilder < ActionView::Helpers::FormBuilder
     VERSION = "0.0.14"
 
