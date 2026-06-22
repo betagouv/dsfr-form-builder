@@ -141,6 +141,28 @@ RSpec.describe Dsfr::FormBuilder do
         HTML
       end
     end
+
+    context 'when class is passed' do
+      it 'sets class on the input' do
+        expect(builder.dsfr_text_field(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input extra-class" type="text" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the input group' do
+        expect(builder.dsfr_text_field(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-input-group fr-mt-2w">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input" type="text" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
   end
 
   describe '#dsfr_text_area' do
@@ -158,6 +180,160 @@ RSpec.describe Dsfr::FormBuilder do
 
       it "doesn't raise" do
         expect { builder.dsfr_text_area(:name, label: "Label") }.not_to raise_error
+      end
+    end
+
+    context 'when class is passed' do
+      it 'sets class on the input' do
+        expect(builder.dsfr_text_area(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <textarea class="fr-input extra-class" name="record[name]" id="record_name">Jean Paul</textarea>
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the input group' do
+        expect(builder.dsfr_text_area(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-input-group fr-mt-2w">
+            <label class="fr-label" for="record_name">Name</label>
+            <textarea class="fr-input" name="record[name]" id="record_name">Jean Paul</textarea>
+          </div>
+        HTML
+      end
+    end
+  end
+
+  describe '#dsfr_email_field' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_email_field(:name)).to match_html(<<~HTML)
+        <div class="fr-input-group">
+          <label class="fr-label" for="record_name">Name</label>
+          <input class="fr-input" type="email" value="Jean Paul" name="record[name]" id="record_name" />
+        </div>
+      HTML
+    end
+
+    context 'when class is passed' do
+      it 'sets class on the input' do
+        expect(builder.dsfr_email_field(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input extra-class" type="email" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the input-group' do
+        expect(builder.dsfr_email_field(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-input-group fr-mt-2w">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input" type="email" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+  end
+
+  describe '#dsfr_url_field' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_url_field(:name)).to match_html(<<~HTML)
+        <div class="fr-input-group">
+          <label class="fr-label" for="record_name">Name</label>
+          <input class="fr-input" type="url" value="Jean Paul" name="record[name]" id="record_name" />
+        </div>
+      HTML
+    end
+
+    context 'when class is passed' do
+      it 'sets class on the input' do
+        expect(builder.dsfr_url_field(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input extra-class" type="url" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the input group' do
+        expect(builder.dsfr_url_field(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-input-group fr-mt-2w">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input" type="url" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+  end
+
+  describe '#dsfr_phone_field' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_phone_field(:name)).to match_html(<<~HTML)
+        <div class="fr-input-group">
+          <label class="fr-label" for="record_name">Name</label>
+          <input class="fr-input" type="tel" value="Jean Paul" name="record[name]" id="record_name" />
+        </div>
+      HTML
+    end
+
+    context 'when class is passed' do
+      it 'sets class on the input' do
+        expect(builder.dsfr_phone_field(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input extra-class" type="tel" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the input group' do
+        expect(builder.dsfr_phone_field(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-input-group fr-mt-2w">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input" type="tel" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+  end
+
+  describe '#dsfr_number_field' do
+    it 'generates the correct HTML' do
+      expect(builder.dsfr_number_field(:name)).to match_html(<<~HTML)
+        <div class="fr-input-group">
+          <label class="fr-label" for="record_name">Name</label>
+          <input class="fr-input" type="number" value="Jean Paul" name="record[name]" id="record_name" />
+        </div>
+      HTML
+    end
+
+    context 'when class is passed' do
+      it 'sets class on the input' do
+        expect(builder.dsfr_number_field(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-input-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input extra-class" type="number" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the input group' do
+        expect(builder.dsfr_number_field(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-input-group fr-mt-2w">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-input" type="number" value="Jean Paul" name="record[name]" id="record_name" />
+          </div>
+        HTML
       end
     end
   end
@@ -206,6 +382,28 @@ RSpec.describe Dsfr::FormBuilder do
 
       it "doesn't raise" do
         expect { builder.dsfr_file_field(:name, label: "Label") }.not_to raise_error
+      end
+    end
+
+    context 'when class is passed' do
+      it 'sets class on the input' do
+        expect(builder.dsfr_file_field(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-upload-group">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-upload extra-class" type="file" name="record[name]" id="record_name" />
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the upload group' do
+        expect(builder.dsfr_file_field(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-upload-group fr-mt-2w">
+            <label class="fr-label" for="record_name">Name</label>
+            <input class="fr-upload" type="file" name="record[name]" id="record_name" />
+          </div>
+        HTML
       end
     end
   end
@@ -327,6 +525,36 @@ RSpec.describe Dsfr::FormBuilder do
     #     </div>
     #   HTML
     # end
+
+    context 'when class is passed' do
+      it 'sets class on the select' do
+        expect(builder.dsfr_select(:role, choices, {}, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-select-group">
+            <label class="fr-label" for="record_role">Role</label>
+            <select class="fr-select extra-class" name="record[role]" id="record_role">
+              <option value="admin">Administrateur</option>
+              <option value="editor">Éditeur</option>
+              <option value="reader">Lecteur</option>
+            </select>
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the select group' do
+        expect(builder.dsfr_select(:role, choices, {}, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-select-group fr-mt-2w">
+            <label class="fr-label" for="record_role">Role</label>
+            <select class="fr-select" name="record[role]" id="record_role">
+              <option value="admin">Administrateur</option>
+              <option value="editor">Éditeur</option>
+              <option value="reader">Lecteur</option>
+            </select>
+          </div>
+        HTML
+      end
+    end
   end
 
   describe "#dsfr_check_box" do
@@ -366,6 +594,34 @@ RSpec.describe Dsfr::FormBuilder do
 
       it "doesn't raise" do
         expect { builder.dsfr_check_box(:name, label: "Label") }.not_to raise_error
+      end
+    end
+
+    context 'when class is passed' do
+      it 'sets class on the input checkbox' do
+        expect(builder.dsfr_check_box(:name, class: "extra-class")).to match_html(<<~HTML)
+          <div class="fr-fieldset__element">
+            <div class="fr-checkbox-group">
+              <input name="record[name]" type="hidden" value="0" autocomplete="off">
+              <input class="extra-class" type="checkbox" value="1" name="record[name]" id="record_name" />
+              <label class="fr-label" for="record_name">Name</label>
+            </div>
+          </div>
+        HTML
+      end
+    end
+
+    context 'when group_class is passed' do
+      it 'sets class on the checkbox-group' do
+        expect(builder.dsfr_check_box(:name, group_class: "fr-mt-2w")).to match_html(<<~HTML)
+          <div class="fr-fieldset__element">
+            <div class="fr-checkbox-group fr-mt-2w">
+              <input name="record[name]" type="hidden" value="0" autocomplete="off">
+              <input type="checkbox" value="1" name="record[name]" id="record_name" />
+              <label class="fr-label" for="record_name">Name</label>
+            </div>
+          </div>
+        HTML
       end
     end
   end
@@ -544,6 +800,46 @@ RSpec.describe Dsfr::FormBuilder do
 
       it "doesn't raise" do
         expect { builder.dsfr_radio_buttons(:pronom, choices, legend: "Legend", label_text: "Label") }.not_to raise_error
+      end
+    end
+
+    context 'when class is passed' do
+      it 'sets class on each radio input but not the labels' do
+        simple_choices = [ { value: "elle", label: "Elle" }, { value: "il", label: "Il" } ]
+        expect(builder.dsfr_radio_buttons(:pronom, simple_choices, legend: "Pronom", class: "extra-class")).to match_html(<<~HTML)
+          <fieldset class="fr-fieldset">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend">Pronom</legend>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group">
+                <input class="extra-class" type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
+                <label class="fr-label" for="record_pronom_elle">Elle</label>
+              </div>
+            </div>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group">
+                <input class="extra-class" type="radio" value="il" name="record[pronom]" id="record_pronom_il">
+                <label class="fr-label" for="record_pronom_il">Il</label>
+              </div>
+            </div>
+          </fieldset>
+        HTML
+      end
+    end
+
+    context 'when fieldset_class is passed' do
+      it 'sets class on the fieldset' do
+        simple_choices = [ { value: "elle", label: "Elle" } ]
+        expect(builder.dsfr_radio_buttons(:pronom, simple_choices, legend: "Pronom", fieldset_class: "extra-class")).to match_html(<<~HTML)
+          <fieldset class="fr-fieldset extra-class">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend">Pronom</legend>
+            <div class="fr-fieldset__element">
+              <div class="fr-radio-group">
+                <input type="radio" value="elle" name="record[pronom]" id="record_pronom_elle">
+                <label class="fr-label" for="record_pronom_elle">Elle</label>
+              </div>
+            </div>
+          </fieldset>
+        HTML
       end
     end
   end

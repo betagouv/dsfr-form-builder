@@ -48,20 +48,20 @@ module Dsfr
     end
 
     def dsfr_input_field(attribute, input_kind, opts = {})
-      dsfr_input_group(attribute, **opts.except(:data)) do
+      dsfr_input_group(attribute, **opts.except(:data, :class, :group_class), class: opts[:group_class]) do
         @template.safe_join([
-          dsfr_label_with_hint(attribute, opts.except(:value)),
-          public_send(input_kind, attribute, class: "fr-input", **opts.except(:class, :hint, :label)),
+          dsfr_label_with_hint(attribute, opts.except(:value, :class)),
+          public_send(input_kind, attribute, class: @template.class_names("fr-input", opts[:class]), **opts.except(:class, :hint, :label, :group_class)),
           dsfr_error_message(attribute)
         ])
       end
     end
 
     def dsfr_file_field(attribute, opts = {})
-      dsfr_input_group(attribute, **opts, kind: :upload) do
+      dsfr_input_group(attribute, **opts.except(:data, :class, :group_class), class: opts[:group_class], kind: :upload) do
         @template.safe_join([
           dsfr_label_with_hint(attribute, opts.except(:class, :value)),
-          file_field(attribute, class: "fr-upload", **opts.except(:class, :hint, :label, :data)),
+          file_field(attribute, class: @template.class_names("fr-upload", opts[:class]), **opts.except(:class, :hint, :label, :data, :group_class)),
           dsfr_error_message(attribute)
         ])
       end
@@ -69,10 +69,10 @@ module Dsfr
 
     def dsfr_check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
       @template.tag.div(class: @template.class_names("fr-fieldset__element", "fr-fieldset__element--inline" => opts.delete(:inline))) do
-        dsfr_input_group(attribute, **opts, kind: :checkbox) do
+        dsfr_input_group(attribute, **opts.except(:data, :class, :group_class), class: opts[:group_class], kind: :checkbox) do
           @template.safe_join([
-            check_box(attribute, opts.except(:label, :hint), checked_value, unchecked_value),
-            dsfr_label_with_hint(attribute, opts)
+            check_box(attribute, opts.except(:label, :hint, :group_class), checked_value, unchecked_value),
+            dsfr_label_with_hint(attribute, opts.except(:class))
           ])
         end
       end
@@ -108,11 +108,11 @@ module Dsfr
     end
 
     def dsfr_select(attribute, choices, input_options = {}, **html_options)
-      select_html_options = html_options.dup.except(:hint, :name)
+      select_html_options = html_options.dup.except(:hint, :name, :label, :group_class)
       select_html_options[:class] = @template.class_names("fr-select", select_html_options[:class])
-      dsfr_input_group(attribute, **html_options, kind: :select) do
+      dsfr_input_group(attribute, **html_options.except(:data, :class, :group_class), class: html_options[:group_class], kind: :select) do
         @template.safe_join([
-          dsfr_label_with_hint(attribute, html_options),
+          dsfr_label_with_hint(attribute, html_options.except(:class)),
           select(attribute, choices, input_options, **select_html_options),
           dsfr_error_message(attribute)
         ])
@@ -124,7 +124,7 @@ module Dsfr
         legend || @object.class.human_attribute_name(attribute),
         hint_tag(hint)
       ])
-      @template.tag.fieldset(class: "fr-fieldset") do
+      @template.tag.fieldset(class: @template.class_names("fr-fieldset", opts[:fieldset_class])) do
         @template.safe_join([
           @template.tag.legend(legend_content, class: "fr-fieldset__legend--regular fr-fieldset__legend"),
           choices.map do |choice|
@@ -134,7 +134,7 @@ module Dsfr
               label_text: choice[:label],
               hint: choice[:hint],
               checked: choice[:checked],
-              **opts
+              **opts.except(:fieldset_class)
             )
           end
         ])
@@ -146,7 +146,7 @@ module Dsfr
         @template.tag.div(class: @template.class_names("fr-radio-group", "fr-radio-rich" => rich)) do
           @template.safe_join([
             radio_button(attribute, value, checked:, **opts),
-            dsfr_label_with_hint(attribute, opts.merge(label_text: label_text, hint: hint, value: value))
+            dsfr_label_with_hint(attribute, opts.except(:class).merge(label_text: label_text, hint: hint, value: value))
           ])
         end
       end
